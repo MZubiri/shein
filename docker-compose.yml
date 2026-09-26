@@ -6,42 +6,10 @@ services:
       NODE_ENV: production
       PORT: 3000
       APP_ORIGIN: ${APP_ORIGIN:-}
-      DATABASE_HOST: mysql
-      DATABASE_PORT: 3306
-      DATABASE_NAME: ${DATABASE_NAME:-agencia_shein}
-      DATABASE_USER: ${DATABASE_USER:-agencia_shein}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-shein_demo_app_2026}
-      DATABASE_SSL: ${DATABASE_SSL:-false}
-      SESSION_DAYS: ${SESSION_DAYS:-14}
-      BOOTSTRAP_OWNER: ${BOOTSTRAP_OWNER:-keekit08}
-      ALLOW_DEMO_VERIFICATION: ${ALLOW_DEMO_VERIFICATION:-false}
-      DEMO_MODE: ${DEMO_MODE:-true}
-    depends_on:
-      mysql:
-        condition: service_healthy
+      DEMO_MODE: "true"
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/api/health"]
-      interval: 30s
+      interval: 15s
       timeout: 5s
       retries: 3
-
-  mysql:
-    image: mysql:8.4
-    restart: unless-stopped
-    environment:
-      MYSQL_DATABASE: ${DATABASE_NAME:-agencia_shein}
-      MYSQL_USER: ${DATABASE_USER:-agencia_shein}
-      MYSQL_PASSWORD: ${DATABASE_PASSWORD:-shein_demo_app_2026}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-shein_demo_root_2026}
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_ai_ci
-    volumes:
-      - mysql_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$${MYSQL_ROOT_PASSWORD} --silent"]
-      interval: 10s
-      timeout: 10s
-      retries: 18
-      start_period: 60s
-
-volumes:
-  mysql_data:
+      start_period: 10s

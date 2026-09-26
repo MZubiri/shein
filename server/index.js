@@ -42,9 +42,9 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/auth', rateLimit({ windowMs: 10 * 60 * 1000, limit: 20, standardHeaders: 'draft-8', legacyHeaders: false }));
-app.use('/api', optionalSession);
 
 app.get('/api/health', async (_req, res) => {
+  if (demoMode) return res.json({ status: 'demo', database: 'disabled', demoMode: true });
   try {
     await pool.query('SELECT 1');
     res.json({ status: 'ok', database: 'connected', demoMode });
@@ -52,6 +52,8 @@ app.get('/api/health', async (_req, res) => {
     res.status(503).json({ status: 'degraded', database: 'unavailable' });
   }
 });
+
+app.use('/api', optionalSession);
 
 app.post('/api/auth/challenge', async (req, res) => {
   const username = String(req.body?.username || '').trim();
@@ -199,8 +201,10 @@ app.use((error, _req, res, _next) => {
 });
 
 async function start() {
-  await migrate();
-  await seedOwner();
+  if (!demoMode) {
+    await migrate();
+    await seedOwner();
+  }
   app.listen(port, '0.0.0.0', () => console.log(`Agencia Shein disponible en el puerto ${port}`));
 }
 

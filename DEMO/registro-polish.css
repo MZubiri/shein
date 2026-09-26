@@ -1,0 +1,16 @@
+button:focus-visible, a:focus-visible, input:focus-visible { outline:3px solid #252322; outline-offset:3px; }
+.field-error { min-height:18px; margin:8px 0 0; color:#c9362d; font-size:12px; }
+.copy-row { display:grid; grid-template-columns:1fr auto; margin-top:8px; }
+.copy-row input { margin:0 !important; border-right:0 !important; font-weight:700; letter-spacing:.08em; }
+.copy-button { border:1px solid #d9d0c6; background:#252322; color:#fff; padding:0 18px; font-weight:700; }
+.verification-note { background:#fff4cf; border-left:3px solid #f05b4f; padding:12px; margin:15px 0 0; color:#5f5954; font-size:12px; line-height:1.5; }
+.steps span { transition:opacity .2s; }
+.steps span.completed { opacity:1; }
+.steps span.completed b::after { content:' ✓'; color:#f05b4f; font-size:12px; }
+.primary-button[aria-busy="true"] { opacity:.65; pointer-events:none; }
+@media (max-width:720px) {
+  .copy-row { grid-template-columns:1fr; }
+  .copy-row input { border-right:1px solid #d9d0c6 !important; }
+  .copy-button { min-height:43px; }
+}
+@media (prefers-reduced-motion:reduce) { *, *::before, *::after { scroll-behavior:auto !important; animation:none !important; transition:none !important; } }

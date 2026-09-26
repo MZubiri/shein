@@ -1,0 +1,22 @@
+{
+  "name": "agencia-shein",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch server/index.js",
+    "start": "node server/index.js",
+    "check": "node --check server/index.js && node --check server/database.js && node --check server/auth.js && node --check DEMO/api-client.js && node --check DEMO/panel-data.js && node --check DEMO/habbo-avatars.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "compression": "^1.8.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
+    "mysql2": "^3.15.1"
+  }
+}

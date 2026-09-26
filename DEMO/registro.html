@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="theme-color" content="#f5c85b" />
+  <title>Registro | Agencia Shein</title>
+  <link rel="stylesheet" href="registro.css" />
+  <link rel="stylesheet" href="registro-polish.css" />
+  <link rel="stylesheet" href="habbo-avatars.css" />
+</head>
+<body>
+  <main class="register-layout">
+    <a href="index.html" class="register-brand" aria-label="Agencia Shein, volver al inicio"><span class="brand-mark">S</span><span><strong>Agencia</strong><em>Shein</em></span></a>
+    <section class="register-copy">
+      <p class="eyebrow">Registro de miembro · Habbo España</p>
+      <h1>Una cuenta.<br /><i>Tu lugar en Shein.</i></h1>
+      <p>Verificamos que eres tú mediante tu perfil público de Habbo. Sin contraseñas compartidas, sin pasos innecesarios.</p>
+      <div class="steps" aria-label="Progreso del registro">
+        <span class="active" aria-current="step"><b>01</b><small>Tu usuario</small></span>
+        <span><b>02</b><small>Verifica misión</small></span>
+        <span><b>03</b><small>Listo</small></span>
+      </div>
+      <div class="register-art" aria-hidden="true"><div class="art-sun"></div><div class="pixel-person"><div></div><i></i><b></b></div><span class="art-label">SHEIN<br /><strong>ES</strong></span></div>
+    </section>
+    <section class="register-form-wrap" aria-live="polite">
+      <form class="register-form" id="registerForm" novalidate>
+        <p class="eyebrow">Paso <span id="stepLabel">01</span> / 03</p>
+        <h2 id="formTitle">Empecemos por tu usuario.</h2>
+        <p id="formCopy">Escribe tu nombre exacto en Habbo España para que podamos encontrar tu perfil público.</p>
+        <label id="habboField" for="habboUser">Usuario de Habbo<input id="habboUser" name="habboUser" required autocomplete="username" placeholder="Ej. HabboLover_22" aria-describedby="registerError" /></label>
+        <p class="field-error" id="registerError" role="alert"></p>
+        <button class="primary-button" type="submit" id="formButton">Continuar <span aria-hidden="true">↗</span></button>
+        <p class="form-foot">Al continuar aceptas las reglas de la agencia.</p>
+      </form>
+      <div class="success-card" id="successCard" hidden>
+        <span class="success-icon" aria-hidden="true">✓</span>
+        <p class="eyebrow">Registro completado</p>
+        <h2>Te esperamos dentro.</h2>
+        <p><strong id="registeredUser"></strong> queda preparado para la aprobación de la administración.</p>
+        <a class="primary-button" href="panel.html">Ver panel demo <span aria-hidden="true">↗</span></a>
+      </div>
+      <a href="index.html" class="return-link">← Volver al sitio público</a>
+    </section>
+  </main>
+  <script src="api-client.js"></script>
+  <script src="registro.js"></script>
+  <script src="habbo-avatars.js"></script>
+</body>
+</html>

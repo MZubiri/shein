@@ -1,0 +1,33 @@
+/* Interaction and accessibility polish layered over the original demo. */
+.skip-link { position:fixed; left:18px; top:12px; z-index:100; background:var(--ink); color:#fff; padding:11px 15px; font-weight:700; transform:translateY(-150%); transition:transform .2s; }
+.skip-link:focus { transform:none; }
+.topbar { backdrop-filter:blur(14px); }
+button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible { outline:3px solid var(--yellow); outline-offset:3px; }
+.main-nav a { transition:color .2s; }
+.time-list div { transition:padding .2s, background .2s; }
+.time-list div.selected { background:rgba(255,255,255,.3); padding-left:12px; padding-right:12px; }
+.time-list div.selected span::before { content:'●'; color:var(--coral); font-size:8px; margin-right:9px; }
+.membership-card, .feature-panel, .quote-panel { transition:transform .25s, box-shadow .25s; }
+.membership-card:hover, .feature-panel:hover, .quote-panel:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(37,35,34,.08); }
+.equalizer i { transform-origin:center; transition:height .25s; }
+.radio-visual.playing .equalizer i { animation:equalize .72s ease-in-out infinite alternate; }
+.radio-visual.playing .equalizer i:nth-child(2n) { animation-delay:-.38s; }
+.radio-visual.playing .equalizer i:nth-child(3n) { animation-delay:-.62s; }
+.form-error { min-height:18px; margin:7px 0 0; color:var(--coral-dark); font-size:12px; text-transform:none; letter-spacing:0; }
+.modal form > input { display:block; width:100%; border:1px solid var(--line); background:#fff; padding:14px 12px; margin-top:9px; outline:0; }
+.modal form > input[aria-invalid="true"] { border-color:var(--coral); }
+.menu-toggle[aria-expanded="true"] { color:var(--coral); }
+@keyframes equalize { to { transform:scaleY(.45); } }
+@media (max-width:620px) {
+  .main-nav.open { box-shadow:0 18px 35px rgba(37,35,34,.12); }
+  .account-actions .primary-button::after { content:'Entrar'; font-size:11px; }
+  .hero h1 { font-size:clamp(46px,14vw,58px); }
+  .hero-meta { flex-wrap:wrap; }
+  .topbar { padding-left:18px; padding-right:18px; }
+  .section-pad { padding-left:22px; padding-right:22px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  .reveal, .view { animation:none !important; }
+  .primary-button, .membership-card, .feature-panel, .quote-panel, .equalizer i { transition:none !important; animation:none !important; }
+}

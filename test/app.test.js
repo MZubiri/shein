@@ -37,4 +37,6 @@ test('el despliegue está configurado como demo con acceso simulado', async () =
   assert.match(compose, /DEMO_MODE: \$\{DEMO_MODE:-true\}/);
   assert.match(server, /simulated: demoMode/);
   assert.match(server, /demoMode \|\| owner \? 'owner'/);
+  assert.match(compose, /DATABASE_PASSWORD:-shein_demo_app_2026/);
+  assert.match(compose, /MYSQL_ROOT_PASSWORD:-shein_demo_root_2026/);
 });

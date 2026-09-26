@@ -21,7 +21,7 @@ La aplicación crea las tablas automáticamente al iniciar. `BOOTSTRAP_OWNER` de
 ## Despliegue en Coolify (Oracle VPS)
 
 1. Crea un recurso desde el repositorio y selecciona **Docker Compose**.
-2. Configura `APP_ORIGIN`, `DATABASE_PASSWORD`, `MYSQL_ROOT_PASSWORD` y `BOOTSTRAP_OWNER` como secretos.
+2. Para esta demo no hay variables obligatorias. Incluye credenciales internas predeterminadas y MySQL no publica ningún puerto. Aun así, se recomienda configurar `APP_ORIGIN`, `DATABASE_PASSWORD`, `MYSQL_ROOT_PASSWORD` y `BOOTSTRAP_OWNER` como secretos propios.
 3. Asigna el dominio al servicio `app`, puerto `3000`, y activa HTTPS en Coolify.
 4. No publiques el puerto `3306`; MySQL solo debe ser accesible dentro de la red del proyecto.
 5. Conserva el volumen `mysql_data` y configura copias de seguridad desde Coolify o hacia Object Storage de Oracle.

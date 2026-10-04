@@ -312,8 +312,20 @@ async function ensureDatabase() {
 }
 
 export async function migrate() {
-  await ensureDatabase();
-  const connection = await pool.getConnection();
+  let connection;
+  let attempts = 0;
+  while (!connection && attempts < 25) {
+    try {
+      attempts++;
+      await ensureDatabase();
+      connection = await pool.getConnection();
+    } catch (err) {
+      if (attempts >= 25) throw err;
+      console.log(`Esperando inicialización de MySQL... intento ${attempts}/25`);
+      await new Promise((r) => setTimeout(r, 2000));
+    }
+  }
+
   try {
     for (let index = 0; index < migrations.length; index += 1) {
       const version = index + 1;

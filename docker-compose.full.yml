@@ -17,8 +17,7 @@ services:
       ALLOW_DEMO_VERIFICATION: ${ALLOW_DEMO_VERIFICATION:-false}
       DEMO_MODE: ${DEMO_MODE:-false}
     depends_on:
-      mysql:
-        condition: service_healthy
+      - mysql
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/api/health"]
       interval: 30s
@@ -33,15 +32,15 @@ services:
       MYSQL_USER: ${DATABASE_USER:-agencia_shein}
       MYSQL_PASSWORD: ${DATABASE_PASSWORD:-shein_demo_app_2026}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-shein_demo_root_2026}
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_ai_ci
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_ai_ci --innodb-buffer-pool-size=64M --max-connections=50 --performance-schema=OFF
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$${MYSQL_ROOT_PASSWORD:-shein_demo_root_2026} --silent"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
       interval: 10s
-      timeout: 10s
-      retries: 18
-      start_period: 60s
+      timeout: 5s
+      retries: 15
+      start_period: 30s
 
 volumes:
   mysql_data:

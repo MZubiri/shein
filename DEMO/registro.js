@@ -75,7 +75,7 @@ function showVerification(code, isSimulated = false) {
   setProgress(2);
 }
 
-function completeRegistration() {
+function completeRegistration(hasPassword = false) {
   step = 3;
   stepLabel.textContent = '03';
   setProgress(3);
@@ -89,10 +89,42 @@ function completeRegistration() {
   strong.id = 'registeredUser';
   strong.textContent = username;
   message.append(strong, document.createTextNode(purpose === 'login' ? ' ya puede entrar a su espacio de trabajo.' : ' queda preparado para la aprobación de la administración.'));
+
+  let setupWrap = document.querySelector('#agencyPwWrap');
+  if (!hasPassword && !setupWrap) {
+    setupWrap = document.createElement('div');
+    setupWrap.id = 'agencyPwWrap';
+    setupWrap.style.cssText = 'margin:18px 0;padding:16px;background:rgba(240,91,79,0.06);border:1px solid rgba(240,91,79,0.22);text-align:left;';
+    setupWrap.innerHTML = '<strong style="display:block;margin-bottom:6px;font-size:14px;color:var(--coral);">🔑 Contraseña para futuros accesos</strong><p style="margin:0 0 10px;font-size:12px;color:var(--muted);">Establece una contraseña para entrar directamente la próxima vez sin tener que modificar tu misión en Habbo.</p><input id="agencyNewPw" type="password" placeholder="Tu nueva contraseña" style="width:100%;padding:10px;border:1px solid var(--line);box-sizing:border-box;margin-bottom:8px;outline:0;" /><p id="agencyPwError" style="color:var(--coral);font-size:12px;margin:0 0 8px;display:none;"></p><button type="button" id="saveAgencyPwBtn" class="primary-button" style="width:100%;justify-content:center;padding:11px;">Guardar contraseña y entrar ↗</button>';
+    successCard.insertBefore(setupWrap, successCard.querySelector('a'));
+
+    document.querySelector('#saveAgencyPwBtn')?.addEventListener('click', async () => {
+      const pwInput = document.querySelector('#agencyNewPw');
+      const pwErr = document.querySelector('#agencyPwError');
+      const val = pwInput ? pwInput.value.trim() : '';
+      if (val.length < 4) {
+        pwErr.textContent = 'La contraseña debe tener al menos 4 caracteres.';
+        pwErr.style.display = 'block';
+        return;
+      }
+      try {
+        await api.request('/auth/set-password', { method:'POST', body:{ password: val, challengeId } });
+        window.location.href = 'panel.html';
+      } catch (err) {
+        pwErr.textContent = err.message;
+        pwErr.style.display = 'block';
+      }
+    });
+  }
+
   successCard.querySelector('a').innerHTML = `${purpose === 'login' ? 'Entrar al panel' : 'Ver panel'} <span aria-hidden="true">↗</span>`;
   form.hidden = true;
   successCard.hidden = false;
-  successCard.querySelector('a').focus();
+  if (!hasPassword && document.querySelector('#agencyNewPw')) {
+    document.querySelector('#agencyNewPw').focus();
+  } else {
+    successCard.querySelector('a').focus();
+  }
 }
 
 async function requestChallenge() {
@@ -118,9 +150,13 @@ async function requestChallenge() {
 async function verifyChallenge() {
   setBusy(true, 'Comprobando…');
   try {
-    if (apiOnline) await api.request('/auth/verify', { method:'POST', body:{ challengeId } });
-    else await new Promise((resolve) => window.setTimeout(resolve, 650));
-    completeRegistration();
+    if (apiOnline) {
+      const result = await api.request('/auth/verify', { method:'POST', body:{ challengeId } });
+      completeRegistration(Boolean(result?.hasPassword));
+    } else {
+      await new Promise((resolve) => window.setTimeout(resolve, 650));
+      completeRegistration(false);
+    }
   } catch (error) {
     fieldError.textContent = error.message;
     formButton.innerHTML = 'Volver a comprobar <span aria-hidden="true">↗</span>';

@@ -9,7 +9,7 @@
   ];
   const normalizedUsers = new Map(users.map((name) => [name.toLocaleLowerCase('es'), name]));
   const escapedUsers = [...users].sort((a, b) => b.length - a.length).map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-  let userPattern = new RegExp(`(${escapedUsers.join('|')})`, 'giu');
+  let userPattern = new RegExp(`(?<=^|[^a-zA-Z0-9_])(${escapedUsers.join('|')})(?=$|[^a-zA-Z0-9_])`, 'giu');
   let scheduled = false;
 
   function avatarUrl(username, size = 'm') {
@@ -144,7 +144,7 @@
         }
         userPattern.lastIndex = 0;
         const parent = node.parentElement;
-        if (!parent || parent.closest('.habbo-name,.habbo-avatar,.user-avatar,.header-user,.account-avatar,.habbo-combobox,.member-person,.featured-people,.mini-user,.account-person,.profile-identity,.ranking-winner,.team-row,[data-no-avatar],option,script,style,textarea')) return NodeFilter.FILTER_REJECT;
+        if (!parent || parent.closest('.habbo-name,.habbo-avatar,.user-avatar,.header-user,.account-avatar,.habbo-combobox,.member-person,.featured-people,.mini-user,.account-person,.profile-identity,.ranking-winner,.team-row,[data-no-avatar],option,script,style,textarea,.chart,.chart-y,.chart-bars,.header-date,#currentHeaderDate,.stat-card strong,.stat-card small,.activity-list small,table td small')) return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
       }
     });
@@ -188,11 +188,14 @@
     element.classList.add('has-photo');
     element.setAttribute('aria-label', `Avatar de ${username}`);
   }, register(username) {
-    if (!username || normalizedUsers.has(username.toLocaleLowerCase('es'))) return;
-    users.push(username);
-    normalizedUsers.set(username.toLocaleLowerCase('es'), username);
+    if (!username || typeof username !== 'string') return;
+    const clean = username.trim();
+    if (clean.length < 3 || /^\d+$/.test(clean) || !/^[a-zA-Z0-9_\-=.:!?@]+$/.test(clean)) return;
+    if (normalizedUsers.has(clean.toLocaleLowerCase('es'))) return;
+    users.push(clean);
+    normalizedUsers.set(clean.toLocaleLowerCase('es'), clean);
     const escaped = [...users].sort((a, b) => b.length - a.length).map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-    userPattern = new RegExp(`(${escaped.join('|')})`, 'giu');
+    userPattern = new RegExp(`(?<=^|[^a-zA-Z0-9_])(${escaped.join('|')})(?=$|[^a-zA-Z0-9_])`, 'giu');
     scheduleEnhance();
   } };
 

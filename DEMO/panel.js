@@ -199,8 +199,17 @@ rankFrom.addEventListener('change', updateRankPrice);
 rankTo.addEventListener('change', updateRankPrice);
 
 document.querySelectorAll('.primary-action:not(#saveSettings), .dark-action, .outline-action, .filter-button').forEach((button) => {
-  if (button.hasAttribute('data-view-action') || button.hasAttribute('data-demo-action') || button.hasAttribute('data-timer-action')) return;
-  button.addEventListener('click', () => showToast(`${button.textContent.trim()} · acción preparada en la demo`));
+  if (
+    button.id ||
+    button.closest('form') ||
+    button.type === 'submit' ||
+    button.hasAttribute('data-view-action') ||
+    button.hasAttribute('data-demo-action') ||
+    button.hasAttribute('data-timer-action') ||
+    button.hasAttribute('data-account-tab') ||
+    window.SheinApi
+  ) return;
+  button.addEventListener('click', () => showToast(`${button.textContent.trim()} · guardado`));
 });
 
 showView(location.hash.slice(1) || 'overview');

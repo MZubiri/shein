@@ -30,3 +30,49 @@ tbody[aria-busy="true"] { opacity:.45; pointer-events:none; }
   .table-pagination span { order:-1; width:100%; text-align:center; }
 }
 @media(prefers-reduced-motion:reduce) { *, *::before, *::after { scroll-behavior:auto !important; animation:none !important; transition:none !important; } }
+
+.rank-badge-img { width: 34px; height: 34px; object-fit: contain; vertical-align: middle; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15)); }
+.rank-badge-cell { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+.mission-tag { display: inline-block; padding: 3px 8px; border-radius: 4px; background: rgba(37,35,34,0.06); font-family: monospace; font-size: 11px; color: var(--ink); }
+.req-tag { font-size: 11px; color: var(--muted); }
+.req-tag b { color: var(--ink); }
+.badge-col { width: 44px; text-align: center; }
+
+.panel-modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: rgba(20, 18, 17, 0.65); backdrop-filter: blur(4px); padding: 18px; }
+.panel-modal[hidden] { display: none !important; }
+.panel-modal-content { max-width: 520px; width: 100%; border-radius: 12px; padding: 24px; box-shadow: 0 20px 48px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); background: var(--surface); color: var(--ink); }
+.modal-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 14px; margin-bottom: 18px; }
+.modal-header h3 { margin: 0; font: 600 20px var(--heading); }
+.modal-close { border: 0; background: transparent; font-size: 24px; cursor: pointer; color: var(--muted); padding: 0 6px; line-height: 1; }
+.modal-close:hover { color: var(--ink); }
+.modal-body { display: flex; flex-direction: column; gap: 14px; margin-bottom: 22px; max-height: 70vh; overflow-y: auto; padding-right: 4px; }
+.modal-body label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; font-weight: 700; color: var(--ink); }
+.modal-body input, .modal-body select { padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; font: inherit; background: var(--surface); color: var(--ink); }
+.edit-member-preview { display: flex; align-items: center; gap: 14px; padding: 12px; background: var(--paper); border-radius: 8px; }
+.edit-member-preview strong { font: 600 16px var(--heading); display: block; }
+.edit-member-preview small { color: var(--muted); }
+.modal-footer { display: flex; align-items: center; justify-content: flex-end; gap: 10px; border-top: 1px solid var(--line); padding-top: 16px; }
+.modal-actions-secondary { display: flex; justify-content: flex-start; margin-top: 6px; }
+
+.row-actions-group { display: flex; align-items: center; gap: 6px; }
+.row-actions-group button { padding: 4px 8px; font-size: 11px; border-radius: 6px; cursor: pointer; }
+.attendance-check-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--line); cursor: pointer; transition: background 0.15s; }
+.attendance-check-item:hover { background: rgba(37,35,34,0.03); }
+.attendance-check-item span { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; }
+.attendance-check-item em { font-style: normal; font-size: 11px; color: var(--muted); }
+
+.level-pill { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 11px; font-weight: 700; }
+.level-pill.high { background: #eaf7ef; color: #2d7a53; border: 1px solid rgba(45,122,83,0.25); }
+.level-pill.low { background: #fff4cf; color: #8a651c; border: 1px solid rgba(138,101,28,0.25); }
+.level-pill.none { background: rgba(37,35,34,0.06); color: var(--muted); }
+
+.pay-badge { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+.pay-badge.bonus { background: #eaf7ef; color: #2d7a53; }
+.pay-badge.nominal { background: #ebf3ff; color: #295ea3; }
+.pay-badge.review { background: #fff0ee; color: #a13d35; }
+.pay-badge.saved { background: #fdf5e6; color: #b8860b; border: 1px solid #ffd700; }
+
+.requirements-box { display: flex; flex-direction: column; gap: 6px; padding: 12px; background: var(--paper); border-radius: 8px; font-size: 12px; border: 1px solid var(--line); }
+.req-row { display: flex; justify-content: space-between; align-items: center; }
+.req-row b { color: var(--ink); }
+

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node --watch server/index.js",
     "start": "node server/index.js",
-    "check": "node --check server/index.js && node --check server/database.js && node --check server/auth.js && node --check DEMO/api-client.js && node --check DEMO/panel-data.js && node --check DEMO/habbo-avatars.js",
+    "check": "node --check server/index.js && node --check server/database.js && node --check server/auth.js && node --check DEMO/api-client.js && node --check DEMO/panel-data.js && node --check DEMO/habbo-avatars.js && node --check DEMO/habbo-sounds.js && node --check DEMO/kiosk.js",
     "test": "node --test"
   },
   "engines": {

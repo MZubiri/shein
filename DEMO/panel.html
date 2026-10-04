@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="es">
-<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" /><meta name="theme-color" content="#252322" /><title>Panel Shein | Demo</title><link rel="stylesheet" href="panel.css" /><link rel="stylesheet" href="panel-polish.css" /><link rel="stylesheet" href="panel-expanded.css" /><link rel="stylesheet" href="habbo-avatars.css" /></head>
+<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" /><meta name="theme-color" content="#252322" /><title>Panel de Control | Agencia Shein</title><link rel="stylesheet" href="panel.css" /><link rel="stylesheet" href="panel-polish.css" /><link rel="stylesheet" href="panel-expanded.css" /><link rel="stylesheet" href="habbo-avatars.css" /></head>
 <body class="panel-body">
 <div class="app-layout">
   <aside class="sidebar" id="sidebar">
     <a href="index.html" class="panel-brand"><span class="brand-mark">S</span><span><strong>Agencia</strong><em>Shein</em></span></a>
-    <div class="workspace-label">ESPACIO DE TRABAJO <span>DEMO</span></div>
+    <div class="workspace-label">ESPACIO DE TRABAJO <span id="workspaceBadge">EN LÍNEA</span></div>
     <nav class="side-nav" aria-label="Panel principal">
       <p class="nav-group-label">GENERAL</p>
       <button class="side-link active" data-view="overview"><span>◈</span> Resumen</button>
@@ -34,14 +34,70 @@
     </nav>
     <div class="sidebar-bottom"><div class="mini-user"><span class="user-avatar">K</span><div><strong>keekit08</strong><small>Dueño</small></div><button class="row-menu" id="logoutButton" title="Cerrar sesión" aria-label="Cerrar sesión">↪</button></div><a href="index.html" class="back-site">← Ver sitio público</a></div>
   </aside>
-  <main class="panel-main"><header class="panel-header"><button class="mobile-menu" id="mobileMenu">☰</button><div><p class="breadcrumb">Agencia Shein <span>/</span> <strong id="viewCrumb">Resumen</strong></p><h1 id="viewTitle">Buenos días, keekit08 <span>✦</span></h1></div><div class="header-actions"><button class="icon-button" title="Notificaciones">♧<i></i></button><span class="header-date">26 SEP 2026</span><span class="header-user">K</span></div></header>
+  <main class="panel-main"><header class="panel-header"><button class="mobile-menu" id="mobileMenu">☰</button><div><p class="breadcrumb">Agencia Shein <span>/</span> <strong id="viewCrumb">Resumen</strong></p><h1 id="viewTitle">Buenos días <span>✦</span></h1></div><div class="header-actions"><button class="icon-button sound-toggle-btn" id="btnToggleSound" title="Efectos de sonido Habbo: Activados" style="font-size:16px;">🔊</button><a href="kiosk.html" target="_blank" class="icon-button" title="Abrir Pantalla Kiosco en Vivo" style="font-size:16px;text-decoration:none;display:flex;align-items:center;justify-content:center;">📺</a><button class="icon-button" title="Notificaciones">♧<i></i></button><span class="header-date" id="currentHeaderDate">-- --- ----</span><span class="header-user">K</span></div></header>
   <div class="panel-content">
-    <section class="view active" id="view-overview"><div class="view-intro"><div><p class="eyebrow">Sábado, 26 de septiembre</p><h2>Todo bajo control.</h2><p class="intro-copy">Este es el pulso de la agencia para hoy. Aquí tienes lo importante de un vistazo.</p></div><button class="primary-action" data-view-action="attendance">Abrir pase de lista <span>↗</span></button></div><div class="stat-grid"><article class="stat-card"><div class="stat-label">Miembros activos <span>↗</span></div><strong>248</strong><small class="positive">↑ 12% <em>vs. mes anterior</em></small></article><article class="stat-card"><div class="stat-label">Paga de hoy <span>↗</span></div><strong>184</strong><small><em>personas pendientes</em></small><div class="mini-progress"><i style="width:74%"></i></div></article><article class="stat-card"><div class="stat-label">Asistencia media <span>↗</span></div><strong>86<span class="small-number">%</span></strong><small class="positive">↑ 4.8% <em>esta semana</em></small></article><article class="stat-card accent"><div class="stat-label">Solicitudes <span>↗</span></div><strong>03</strong><small><em>requieren revisión</em></small><button class="card-link" data-view-action="requests">Revisar ahora →</button></article></div><div class="overview-grid"><article class="surface chart-surface"><div class="surface-heading"><div><p class="eyebrow">Actividad</p><h3>Asistencia de la semana</h3></div><select><option>Últimos 7 días</option><option>Este mes</option></select></div><div class="chart"><div class="chart-y"><span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0</span></div><div class="chart-bars"><div><i style="height:55%"></i><small>Lun</small></div><div><i style="height:73%"></i><small>Mar</small></div><div><i style="height:62%"></i><small>Mié</small></div><div><i style="height:88%"></i><small>Jue</small></div><div><i style="height:79%"></i><small>Vie</small></div><div class="today"><i style="height:94%"></i><small>Hoy</small></div></div></div></article><article class="surface activity-surface"><div class="surface-heading"><div><p class="eyebrow">En directo</p><h3>Actividad reciente</h3></div><button class="dots">•••</button></div><div class="activity-list"><div><span class="activity-dot coral"></span><p><b>Jo.C</b> registró un pase de lista<small>Hace 8 min</small></p></div><div><span class="activity-dot yellow"></span><p><b>MitsunoNakae087</b> aprobó una solicitud<small>Hace 24 min</small></p></div><div><span class="activity-dot violet"></span><p><b>keekit08</b> actualizó los horarios<small>Hace 1 h</small></p></div><div><span class="activity-dot green"></span><p><b>Agencia Shein</b> publicó un anuncio<small>Hace 2 h</small></p></div></div><button class="view-all">Ver toda la actividad →</button></article></div></section>
-    <section class="view" id="view-members"><div class="view-intro compact"><div><p class="eyebrow">Directorio</p><h2>Miembros</h2><p class="intro-copy">Consulta rangos, actividad y estado de cada integrante.</p></div><button class="primary-action">+ Añadir miembro</button></div><div class="toolbar"><div class="search-box">⌕ <input id="memberSearch" placeholder="Buscar por usuario..." /></div><select><option>Todos los rangos</option><option>Dueño</option><option>Administrador</option><option>Supervisor</option><option>Miembro</option></select><button class="filter-button">☷ Filtros</button></div><div class="surface table-surface"><table><thead><tr><th>USUARIO</th><th>RANGO</th><th>ESTADO</th><th>ÚLTIMA ACTIVIDAD</th><th></th></tr></thead><tbody id="membersTable"><tr><td><span class="member-person"><span class="habbo-avatar pink-avatar">K</span><b>keekit08<small>keekit08</small></b></span></td><td><span class="role owner">Dueño</span></td><td><span class="status online">● Activo</span></td><td>Hoy, 21:42</td><td><button class="row-menu">•••</button></td></tr><tr><td><span class="member-person"><span class="habbo-avatar blue-avatar">M</span><b>MitsunoNakae087<small>MitsunoNakae087</small></b></span></td><td><span class="role owner">Dueño</span></td><td><span class="status online">● Activo</span></td><td>Hoy, 20:18</td><td><button class="row-menu">•••</button></td></tr><tr><td><span class="member-person"><span class="habbo-avatar yellow-avatar">J</span><b>Jo.C<small>Jo.C</small></b></span></td><td><span class="role admin">Administrador</span></td><td><span class="status online">● Activo</span></td><td>Hoy, 19:04</td><td><button class="row-menu">•••</button></td></tr><tr><td><span class="member-person"><span class="habbo-avatar green-avatar">L</span><b>Lunita_Shein<small>Lunita_Shein</small></b></span></td><td><span class="role supervisor">Supervisor</span></td><td><span class="status away">● Ausente</span></td><td>Ayer, 22:31</td><td><button class="row-menu">•••</button></td></tr><tr><td><span class="member-person"><span class="habbo-avatar violet-avatar">A</span><b>AxelHabbo<small>AxelHabbo</small></b></span></td><td><span class="role member">Miembro</span></td><td><span class="status online">● Activo</span></td><td>Ayer, 21:55</td><td><button class="row-menu">•••</button></td></tr></tbody></table></div></section>
-    <section class="view" id="view-attendance"><div class="view-intro compact"><div><p class="eyebrow">Control diario</p><h2>Pases de lista</h2><p class="intro-copy">Registra asistencia y revisa quién está listo para la paga.</p></div><button class="primary-action">+ Nuevo pase</button></div><div class="attendance-banner"><div><span class="live-dot"></span><b>Pase abierto · Turno noche</b><small>Iniciado por Jo.C hace 18 minutos</small></div><strong>74 <small>/ 92 presentes</small></strong><button class="dark-action">Cerrar pase</button></div><div class="stat-grid two"><article class="stat-card"><div class="stat-label">Presentes hoy</div><strong>184</strong><small class="positive">↑ 12 desde ayer</small></article><article class="stat-card"><div class="stat-label">Ausencias registradas</div><strong>21</strong><small><em>8 con permiso</em></small></article></div><div class="surface table-surface"><div class="surface-heading"><div><p class="eyebrow">Pase actual</p><h3>Turno noche · 22:00</h3></div><button class="filter-button">Exportar CSV ↗</button></div><div class="check-list"><label><input type="checkbox" checked /> <span><b>keekit08</b><small>Dueño · presente</small></span><em>21:44</em></label><label><input type="checkbox" checked /> <span><b>MitsunoNakae087</b><small>Dueño · presente</small></span><em>21:42</em></label><label><input type="checkbox" /> <span><b>AxelHabbo</b><small>Miembro · pendiente</small></span><em>--:--</em></label></div></div></section>
-    <section class="view" id="view-payments"><div class="view-intro compact"><div><p class="eyebrow">Historial financiero</p><h2>Pagas</h2><p class="intro-copy">Controla pagos, pendientes y comprobantes de la agencia.</p></div><button class="primary-action">+ Registrar paga</button></div><div class="payment-highlight"><div><span class="eyebrow">Próxima paga</span><strong>Hoy, 22:00</strong><small>España · Turno noche</small></div><div class="payment-total"><span>Total estimado</span><b>1,840 <i>c</i></b><small>184 miembros incluidos</small></div><button class="dark-action">Preparar paga →</button></div><div class="surface table-surface"><div class="surface-heading"><div><p class="eyebrow">Últimas operaciones</p><h3>Historial de pagas</h3></div><select><option>2026</option><option>2025</option></select></div><table><thead><tr><th>FECHA</th><th>TURNO</th><th>MIEMBROS</th><th>TOTAL</th><th>ESTADO</th></tr></thead><tbody><tr><td>25 sep 2026</td><td>Noche · España</td><td>176</td><td><b>1,760 c</b></td><td><span class="pill-success">Completada</span></td></tr><tr><td>24 sep 2026</td><td>Noche · España</td><td>182</td><td><b>1,820 c</b></td><td><span class="pill-success">Completada</span></td></tr><tr><td>23 sep 2026</td><td>Noche · España</td><td>169</td><td><b>1,690 c</b></td><td><span class="pill-success">Completada</span></td></tr></tbody></table></div></section>
+    <section class="view active" id="view-overview"><div class="view-intro"><div><p class="eyebrow" id="overviewTodayEyebrow">Hoy</p><h2>Todo bajo control.</h2><p class="intro-copy">Este es el pulso de la agencia para hoy. Aquí tienes lo importante de un vistazo.</p></div><button class="primary-action" data-view-action="attendance">Abrir pase de lista <span>↗</span></button></div><div class="stat-grid"><article class="stat-card"><div class="stat-label">Miembros activos <span>↗</span></div><strong id="overviewActiveMembers">0</strong><small class="positive">↑ Verificados en base</small></article><article class="stat-card"><div class="stat-label">Paga de hoy <span>↗</span></div><strong id="overviewTodayPayroll">0</strong><small><em>personas evaluadas</em></small><div class="mini-progress"><i id="overviewPayrollProgress" style="width:74%"></i></div></article><article class="stat-card"><div class="stat-label">Asistencia media <span>↗</span></div><strong id="overviewAvgAttendance">86<span class="small-number">%</span></strong><small class="positive">↑ Ritmo de la semana</small></article><article class="stat-card accent"><div class="stat-label">Solicitudes <span>↗</span></div><strong id="overviewPendingReqs">0</strong><small><em>requieren revisión</em></small><button class="card-link" data-view-action="requests">Revisar ahora →</button></article></div><div class="overview-grid"><article class="surface chart-surface"><div class="surface-heading"><div><p class="eyebrow">Actividad</p><h3>Asistencia de la semana</h3></div><select><option>Últimos 7 días</option><option>Este mes</option></select></div><div class="chart"><div class="chart-y"><span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0</span></div><div class="chart-bars" id="overviewChartBars"><div><i style="height:55%"></i><small>Lun</small></div><div><i style="height:73%"></i><small>Mar</small></div><div><i style="height:62%"></i><small>Mié</small></div><div><i style="height:88%"></i><small>Jue</small></div><div><i style="height:79%"></i><small>Vie</small></div><div class="today"><i style="height:94%"></i><small>Hoy</small></div></div></div></article><article class="surface activity-surface"><div class="surface-heading"><div><p class="eyebrow">En directo</p><h3>Actividad reciente</h3></div><button class="dots">•••</button></div><div class="activity-list" id="overviewActivityList"></div><button class="view-all" data-view-action="audit">Ver toda la actividad →</button></article></div></section>
+    <section class="view" id="view-members"><div class="view-intro compact"><div><p class="eyebrow">Directorio</p><h2>Miembros</h2><p class="intro-copy">Consulta rangos, actividad y estado de cada integrante.</p></div><button class="primary-action" id="btnAddMemberManual">+ Añadir miembro</button></div><div class="toolbar"><div class="search-box">⌕ <input id="memberSearch" placeholder="Buscar por usuario o misión..." /></div><select id="memberRankFilter"><option value="">Todos los rangos</option></select><button class="filter-button" id="btnRefreshMembers">☷ Actualizar</button></div><div class="surface table-surface"><table><thead><tr><th>USUARIO</th><th>RANGO</th><th>MISIÓN HABBO</th><th>ESTADO</th><th>ÚLTIMA ACTIVIDAD</th><th></th></tr></thead><tbody id="membersTable"></tbody></table></div></section>
+    <section class="view" id="view-attendance"><div class="view-intro compact"><div><p class="eyebrow">Control diario</p><h2>Pases de lista</h2><p class="intro-copy">Registra asistencia y revisa quién está listo para la paga.</p></div><button class="primary-action" id="btnOpenAttendanceModal">+ Nuevo pase</button></div><div class="attendance-banner" id="attendanceBanner"><div><span class="live-dot" id="attLiveDot"></span><b id="attShiftTitle">Pase abierto · Turno noche</b><small id="attShiftMeta">Iniciado por Jo.C hace 18 minutos</small></div><strong id="attCountSummary">0 <small>/ 0 presentes</small></strong><button class="dark-action" id="btnCloseAttendance">Cerrar pase</button></div><div class="stat-grid two"><article class="stat-card"><div class="stat-label">Presentes hoy</div><strong id="attTotalPresent">0</strong><small class="positive">Asistencias registradas</small></article><article class="stat-card"><div class="stat-label">Ausencias registradas</div><strong id="attTotalAbsent">0</strong><small><em id="attTotalExcused">0 con permiso</em></small></article></div><div class="surface table-surface"><div class="surface-heading"><div><p class="eyebrow">Pase actual</p><h3 id="attCurrentShiftHeading">Turno noche · 22:00</h3></div><button class="filter-button" id="btnExportAttendance">Exportar CSV ↗</button></div><div class="check-list" id="attendanceCheckList"></div></div></section>
+    <section class="view" id="view-payments">
+      <div class="view-intro compact">
+        <div>
+          <p class="eyebrow">Historial financiero</p>
+          <h2>Pagas</h2>
+          <p class="intro-copy">Controla pagos, pendientes y comprobantes de la agencia.</p>
+        </div>
+        <button class="primary-action" id="btnOpenManualPaymentModal">+ Registrar paga</button>
+      </div>
+      <div class="payment-highlight">
+        <div>
+          <span class="eyebrow">Próxima paga</span>
+          <strong id="paymentsNextDate">Hoy, 22:00</strong>
+          <small id="paymentsNextShift">España · Turno noche</small>
+        </div>
+        <div class="payment-total">
+          <span>Total estimado</span>
+          <b><span id="paymentsNextCredits">1,840</span> <i>c</i></b>
+          <small id="paymentsNextMembers">184 miembros incluidos</small>
+        </div>
+        <button class="dark-action" id="btnGoToPayroll">Preparar paga →</button>
+      </div>
+      <div class="surface table-surface">
+        <div class="surface-heading">
+          <div>
+            <p class="eyebrow">Últimas operaciones</p>
+            <h3>Historial de pagas</h3>
+          </div>
+          <button class="filter-button" id="btnRefreshPaymentsHistory">☷ Actualizar</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>FECHA</th>
+              <th>TURNO</th>
+              <th>MIEMBROS</th>
+              <th>TOTAL</th>
+              <th>ESTADO</th>
+            </tr>
+          </thead>
+          <tbody id="paymentsHistoryTableBody"></tbody>
+        </table>
+      </div>
+    </section>
     <section class="view" id="view-requests"><div class="view-intro compact"><div><p class="eyebrow">Bandeja de entrada</p><h2>Solicitudes</h2><p class="intro-copy">Revisa altas, ascensos y solicitudes de membresías.</p></div><span class="pending-badge">3 pendientes</span></div><div class="request-grid"><article class="request-card"><span class="request-icon coral-bg">↗</span><div><h3>Solicitud de ingreso</h3><p>HabboLover_22 quiere unirse a la agencia.</p><small>Hace 12 minutos</small></div><div class="request-actions"><button class="approve">Aprobar</button><button class="reject">Rechazar</button></div></article><article class="request-card"><span class="request-icon yellow-bg">♙</span><div><h3>Solicitud de ascenso</h3><p>AxelHabbo · Miembro → Supervisor.</p><small>Hace 1 hora</small></div><div class="request-actions"><button class="approve">Revisar</button><button class="reject">Dejar pendiente</button></div></article><article class="request-card"><span class="request-icon lavender-bg">✦</span><div><h3>Membresía Silver</h3><p>Lunita_Shein solicita activar Silver.</p><small>Hace 2 horas</small></div><div class="request-actions"><button class="approve">Aprobar</button><button class="reject">Rechazar</button></div></article></div></section>
-    <section class="view" id="view-memberships"><div class="view-intro compact"><div><p class="eyebrow">Catálogo y activos</p><h2>Membresías</h2><p class="intro-copy">Gestiona beneficios, precios y membresías activas.</p></div><button class="primary-action">+ Nueva membresía</button></div><div class="membership-admin-grid"><article class="surface membership-admin-card"><div class="admin-card-top"><span class="membership-symbol coral-text">✦</span><button class="dots">•••</button></div><h3>Bronce</h3><p>Regla libre y fila VIP</p><strong>35 <small>c / mes</small></strong><div class="member-count">42 miembros activos</div><button class="outline-action">Editar beneficio</button></article><article class="surface membership-admin-card"><div class="admin-card-top"><span class="membership-symbol blue-text">◈</span><button class="dots">•••</button></div><h3>Silver</h3><p>Igual que bronce + reducción</p><strong>55 <small>c / mes</small></strong><div class="member-count">18 miembros activos</div><button class="outline-action">Editar beneficio</button></article><article class="surface membership-admin-card dark-admin"><div class="admin-card-top"><span class="membership-symbol yellow-text">✹</span><button class="dots">•••</button></div><h3>Gold</h3><p>Incluye guarda paga</p><strong>65 <small>c / mes</small></strong><div class="member-count">9 miembros activos</div><button class="outline-action">Editar beneficio</button></article></div></section>
+    <section class="view" id="view-memberships">
+      <div class="view-intro compact">
+        <div>
+          <p class="eyebrow">Catálogo y activos</p>
+          <h2>Membresías</h2>
+          <p class="intro-copy">Gestiona beneficios, precios y membresías activas.</p>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <button class="filter-button" id="btnOpenAssignMembershipModal">☷ Asignar a miembro</button>
+          <button class="primary-action" id="btnOpenCreateMembershipModal">+ Nueva membresía</button>
+        </div>
+      </div>
+      <div class="membership-admin-grid" id="membershipsGrid"></div>
+    </section>
     <section class="view" id="view-settings"><div class="view-intro compact"><div><p class="eyebrow">Administración</p><h2>Configuración</h2><p class="intro-copy">Ajusta el contenido y las reglas de Agencia Shein.</p></div><button class="primary-action" id="saveSettings">Guardar cambios</button></div><div class="settings-grid"><article class="surface settings-card"><p class="eyebrow">Perfil público</p><h3>Identidad de la agencia</h3><label>Nombre<input value="Agencia Shein" /></label><label>Descripción<textarea>Una agencia de Habbo España hecha por y para la comunidad.</textarea></label><label>Enlace de Discord<input value="https://discord.gg/efN7VrBmv3" /></label></article><article class="surface settings-card"><p class="eyebrow">Reglas de pago</p><h3>Horarios y operación</h3><label>País principal<select><option>España</option></select></label><label>Hora de paga<input value="22:00" /></label><label class="toggle-row"><span>Mostrar horarios públicos</span><input type="checkbox" checked /></label><label class="toggle-row"><span>Permitir solicitudes abiertas</span><input type="checkbox" checked /></label></article></div></section>
     <section class="view" id="view-departments">
       <div class="view-intro compact"><div><p class="eyebrow">Estructura del equipo</p><h2>Departamentos</h2><p class="intro-copy">Responsables y actividad de cada área de la agencia.</p></div><button class="primary-action" data-demo-action="Crear departamento">+ Nuevo departamento</button></div>
@@ -54,77 +110,753 @@
     </section>
 
     <section class="view" id="view-promotions">
-      <div class="view-intro compact"><div><p class="eyebrow">Progreso de personal</p><h2>Ascensos</h2><p class="intro-copy">Consulta requisitos y prepara el siguiente rango de cada miembro.</p></div><button class="primary-action" data-demo-action="Registrar ascenso">Registrar ascenso</button></div>
-      <div class="toolbar"><div class="search-box">⌕ <input class="live-filter" data-filter-target="promotionProfile" placeholder="Buscar usuario..." value="R3belde" /></div><button class="filter-button" data-demo-action="Buscar usuario">Buscar</button></div>
-      <article class="surface profile-progress" id="promotionProfile"><div class="profile-identity"><span class="habbo-avatar yellow-avatar">R</span><div><small>USUARIO SELECCIONADO</small><h3>R3belde</h3><span class="role supervisor">Supervisor</span></div></div><div class="promotion-route"><div><small>Misión actual</small><strong>SUP · Ayudante F</strong></div><span>→</span><div><small>Siguiente misión</small><strong>DIR · Iniciado J</strong></div></div><div class="requirements-grid"><span><b>2 / 3</b><small>Ascensos</small></span><span><b>4h 50m</b><small>Asistencia</small></span><span><b>Completo</b><small>Tiempo mínimo</small></span><span><b>1 pendiente</b><small>Fichaje</small></span></div><button class="outline-action" data-demo-action="Enviar solicitud de ascenso">Enviar solicitud</button></article>
+      <div class="view-intro compact">
+        <div>
+          <p class="eyebrow">Progreso de personal</p>
+          <h2>Ascensos</h2>
+          <p class="intro-copy">Consulta requisitos y prepara el siguiente rango de cada miembro.</p>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <button class="filter-button" id="btnRefreshPromotions">☷ Actualizar</button>
+          <button class="primary-action" id="btnOpenPromoteModal">+ Registrar ascenso</button>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div class="search-box">
+          ⌕ <input id="promoSearchInput" placeholder="Buscar usuario para ascender..." value="R3belde" list="promoUserDatalist" />
+          <datalist id="promoUserDatalist"></datalist>
+        </div>
+        <button class="filter-button" id="btnSearchPromoUser">Consultar requisitos</button>
+      </div>
+      <article class="surface profile-progress" id="promotionProfile">
+        <div class="profile-identity">
+          <span class="habbo-avatar yellow-avatar" id="promoAvatar">R</span>
+          <div>
+            <small id="promoUserMeta">USUARIO SELECCIONADO</small>
+            <h3 id="promoUsername">R3belde</h3>
+            <span class="role supervisor" id="promoRoleBadge">Supervisor</span>
+          </div>
+        </div>
+        <div class="promotion-route">
+          <div>
+            <small>Misión actual</small>
+            <strong id="promoCurrentMission">SUP · Ayudante F [KEK]</strong>
+          </div>
+          <span>→</span>
+          <div>
+            <small>Siguiente misión sugerida</small>
+            <strong id="promoNextMission">SUP · Junior E [KEK]</strong>
+            <button type="button" class="btn-copy" id="btnCopySuggestedMission" style="margin-top:8px;">📋 Copiar misión</button>
+          </div>
+        </div>
+
+        <div class="career-progress-widget" style="margin:18px 0;background:#242220;border:1px solid #3a3631;border-radius:10px;padding:14px 18px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-size:12px;color:#a8a096;">Progreso en <strong id="promoProgressRankName" style="color:#fff;">-</strong></span>
+            <span style="font-size:12px;color:var(--yellow);font-weight:700;" id="promoProgressText">0 / 10 (0%)</span>
+          </div>
+          <div class="career-track">
+            <div class="career-track-bar" id="promoProgressBar" style="width:0%;"></div>
+          </div>
+          <small style="display:block;margin-top:8px;font-size:11px;color:#888;" id="promoProgressNextMilestone">Próximo objetivo: Calculando...</small>
+        </div>
+
+        <div class="requirements-grid">
+          <span id="promoStatPromotions"><b>0 / 0</b><small>Ascensos realizados</small></span>
+          <span id="promoStatAttendance"><b>0 asis</b><small>Asistencias registradas</small></span>
+          <span id="promoStatWaitTime"><b>Completo</b><small>Tiempo mínimo de espera</small></span>
+          <span id="promoStatTimeHours"><b>0h</b><small>Tiempos acumulados</small></span>
+        </div>
+
+        <div id="promoWaitAlert" style="display:none;margin-top:14px;"></div>
+
+        <div style="display:flex;align-items:center;gap:12px;margin-top:18px;flex-wrap:wrap;">
+          <button class="primary-action" id="btnApplyPromotionDirect">Aplicar ascenso oficial →</button>
+          <label id="promoOverrideGroup" style="display:none;font-size:12px;color:#fce19a;cursor:pointer;">
+            <input type="checkbox" id="promoOverrideWait" /> Autorizar ascenso extraordinario (Bypass de espera)
+          </label>
+        </div>
+      </article>
+
+      <div class="surface table-surface" style="margin-top:24px;">
+        <div class="surface-heading">
+          <div>
+            <p class="eyebrow">Trazabilidad</p>
+            <h3>Historial de ascensos recientes</h3>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>USUARIO</th>
+              <th>MISIÓN ANTERIOR</th>
+              <th>NUEVA MISIÓN</th>
+              <th>MODALIDAD</th>
+              <th>ENCARGADO</th>
+              <th>FECHA</th>
+            </tr>
+          </thead>
+          <tbody id="promotionsHistoryTableBody"></tbody>
+        </table>
+      </div>
     </section>
 
     <section class="view" id="view-timers">
-      <div class="view-intro compact"><div><p class="eyebrow">Actividad en base</p><h2>Tiempos</h2><p class="intro-copy">Controla timers activos, pausas, entrenamientos y responsables.</p></div><button class="primary-action" data-demo-action="Ligar tiempos">+ Ligar tiempos</button></div>
-      <div class="timer-summary"><article><span class="live-dot"></span><div><small>TIMER ACTIVO</small><strong id="liveTimer">00:07:39</strong><span>Gusgus95MX · Base</span></div></article><div class="timer-actions"><button class="approve" data-timer-action="confirm">Confirmar</button><button class="reject" data-timer-action="pause">Pausar</button><button class="filter-button" data-demo-action="Ajustar tiempo">Ajustar</button></div></div>
-      <div class="surface table-surface"><div class="surface-heading"><div><p class="eyebrow">En curso</p><h3>Timers asignados</h3></div><div class="segmented"><button class="active">Activos</button><button>Pausados</button></div></div><table><thead><tr><th>LUGAR</th><th>USUARIO</th><th>ENCARGADO</th><th>TIEMPO</th><th>PAUSAS</th><th>ESTADO</th><th></th></tr></thead><tbody><tr><td>Base</td><td><b>Gusgus95MX</b></td><td>Ailin:0</td><td class="timer-value">00:07:39</td><td>0</td><td><span class="status online">● Activo</span></td><td><button class="row-menu">•••</button></td></tr><tr><td>Entrenamiento</td><td><b>melany1999</b></td><td>Jo.C</td><td>00:04:55</td><td>1</td><td><span class="status away">● Pausado</span></td><td><button class="row-menu">•••</button></td></tr></tbody></table></div>
+      <div class="view-intro compact"><div><p class="eyebrow">Actividad en base</p><h2>Tiempos</h2><p class="intro-copy">Controla timers activos, pausas, entrenamientos y responsables.</p></div><button class="primary-action" id="btnOpenTimerModal">+ Ligar tiempos</button></div>
+      <div class="timer-summary"><article><span class="live-dot" id="liveTimerDot"></span><div><small>TIMER ACTIVO</small><strong id="liveTimer">00:00:00</strong><span id="liveTimerMeta">Sin timer activo</span></div></article><div class="timer-actions"><button class="approve" id="btnConfirmTimer">Confirmar</button><button class="reject" id="btnPauseTimer">Pausar</button><button class="filter-button" id="btnCancelTimer">Cancelar</button></div></div>
+      <div class="surface table-surface"><div class="surface-heading"><div><p class="eyebrow">En curso</p><h3>Timers asignados</h3></div><div class="segmented" id="timerTabs"><button class="active" data-timer-tab="active">Activos</button><button data-timer-tab="paused">Pausados</button><button data-timer-tab="history">Historial</button></div></div><table><thead><tr><th>LUGAR</th><th>USUARIO</th><th>ENCARGADO</th><th>TIEMPO</th><th>PAUSAS</th><th>ESTADO</th><th></th></tr></thead><tbody id="timersTableBody"></tbody></table></div>
     </section>
 
     <section class="view" id="view-payroll">
-      <div class="view-intro compact"><div><p class="eyebrow">Cierre de jornada</p><h2>Nómina</h2><p class="intro-copy">Revisa requisitos, incidencias y modalidad de paga.</p></div><button class="primary-action" data-demo-action="Procesar nómina">Procesar nómina</button></div>
-      <div class="stat-grid"><article class="stat-card"><div class="stat-label">Miembros evaluados</div><strong>92</strong><small>Turno noche</small></article><article class="stat-card"><div class="stat-label">Nómina</div><strong>61</strong><small class="positive">Listos para pagar</small></article><article class="stat-card"><div class="stat-label">Bonificación</div><strong>24</strong><small>Alto rendimiento</small></article><article class="stat-card accent"><div class="stat-label">Revisión</div><strong>07</strong><small>Requisitos pendientes</small></article></div>
-      <div class="surface table-surface"><div class="surface-heading"><div><p class="eyebrow">Vista operativa</p><h3>Bajos y altos</h3></div><select><option>Todos</option><option>Bajos</option><option>Altos</option></select></div><table><thead><tr><th>USUARIO</th><th>NIVEL</th><th>ASCENSOS</th><th>ASISTENCIA</th><th>TIEMPOS</th><th>FICHAJE</th><th>PAGA</th><th></th></tr></thead><tbody><tr><td><span class="member-person"><span class="habbo-avatar pink-avatar">R</span><b>R3belde<small>Supervisor</small></b></span></td><td><span class="level-pill low">Bajo</span></td><td>2</td><td>4h 50m</td><td>0</td><td>0</td><td>Nómina</td><td><button class="approve" data-demo-action="Revisar nómina">Revisar</button></td></tr><tr><td><span class="member-person"><span class="habbo-avatar green-avatar">M</span><b>melany1999<small>Operativo</small></b></span></td><td><span class="level-pill high">Alto</span></td><td>4</td><td>9h 21m</td><td>34h 27m</td><td>0</td><td>Bonificación</td><td><button class="approve" data-demo-action="Revisar nómina">Revisar</button></td></tr><tr><td><span class="member-person"><span class="habbo-avatar blue-avatar">A</span><b>Ailin:0<small>Operativo</small></b></span></td><td><span class="level-pill high">Alto</span></td><td>3</td><td>16h 21m</td><td>50h 51m</td><td>0</td><td>Bonificación</td><td><button class="approve" data-demo-action="Revisar nómina">Revisar</button></td></tr></tbody></table></div>
+      <div class="view-intro compact">
+        <div>
+          <p class="eyebrow">Cierre de jornada</p>
+          <h2 id="payrollHeading">Nómina</h2>
+          <p class="intro-copy" id="payrollSubheading">Revisa requisitos, incidencias y modalidad de paga.</p>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <button class="filter-button" id="btnRecalculatePayroll">↻ Recalcular</button>
+          <button class="primary-action" id="btnProcessPayroll">Procesar nómina</button>
+          <button class="filter-button" id="btnOpenPayoutModal" style="background:#1d3826;border-color:#2f6e43;color:#85e9a4;font-weight:600;">💰 Reparto en sala (:darcreditos)</button>
+        </div>
+      </div>
+      <div class="stat-grid">
+        <article class="stat-card">
+          <div class="stat-label">Miembros evaluados</div>
+          <strong id="payrollTotalEvaluated">0</strong>
+          <small id="payrollShiftLabel">Turno noche</small>
+        </article>
+        <article class="stat-card">
+          <div class="stat-label">Nómina</div>
+          <strong id="payrollTotalNominal">0</strong>
+          <small class="positive">Listos para pagar</small>
+        </article>
+        <article class="stat-card">
+          <div class="stat-label">Bonificación</div>
+          <strong id="payrollTotalBonus">0</strong>
+          <small>Alto rendimiento</small>
+        </article>
+        <article class="stat-card accent">
+          <div class="stat-label">Revisión</div>
+          <strong id="payrollTotalReview">0</strong>
+          <small>Requisitos pendientes</small>
+        </article>
+      </div>
+      <div class="surface table-surface">
+        <div class="surface-heading">
+          <div>
+            <p class="eyebrow">Vista operativa</p>
+            <h3>Bajos y altos</h3>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <select id="payrollLevelFilter">
+              <option value="all">Todos los niveles</option>
+              <option value="low">Bajos</option>
+              <option value="high">Altos</option>
+            </select>
+            <select id="payrollQualFilter">
+              <option value="all">Todas las modalidades</option>
+              <option value="bonus">Bonificación</option>
+              <option value="nominal">Nómina</option>
+              <option value="review">Revisión</option>
+            </select>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>USUARIO</th>
+              <th>NIVEL</th>
+              <th>ASCENSOS</th>
+              <th>ASISTENCIA</th>
+              <th>TIEMPOS</th>
+              <th>FICHAJE</th>
+              <th>PAGA</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="payrollTableBody"></tbody>
+        </table>
+      </div>
     </section>
 
     <section class="view" id="view-ranking">
-      <div class="view-intro compact"><div><p class="eyebrow">Desde el 26 de agosto</p><h2>Top ranking</h2><p class="intro-copy">Reconoce la constancia de la comunidad en cada categoría.</p></div><button class="primary-action" data-demo-action="Cambiar periodo">Cambiar periodo</button></div>
-      <div class="ranking-grid"><article class="surface ranking-card"><p class="eyebrow">Asistencias</p><div class="ranking-winner"><span>1</span><span class="habbo-avatar pink-avatar">4</span><div><strong>4karen</strong><small>50h 37m</small></div></div><ol><li><span>2</span><b>melany1999</b><small>46h 13m</small></li><li><span>3</span><b>Santig.f</b><small>46h 01m</small></li><li><span>4</span><b>elmodeloaseguir</b><small>41h 13m</small></li></ol></article><article class="surface ranking-card"><p class="eyebrow">Tiempos</p><div class="ranking-winner"><span>1</span><span class="habbo-avatar blue-avatar">S</span><div><strong>SaulSoprano</strong><small>125h 01m</small></div></div><ol><li><span>2</span><b>Berna.</b><small>101h 27m</small></li><li><span>3</span><b>keekit08</b><small>60h 55m</small></li><li><span>4</span><b>melany1999</b><small>51h 27m</small></li></ol></article><article class="surface ranking-card"><p class="eyebrow">Fichajes</p><div class="empty-state"><span>◇</span><strong>Aún sin registros</strong><small>Los resultados aparecerán tras el próximo cierre.</small></div></article></div>
+      <div class="view-intro compact"><div><p class="eyebrow">Escalafón de Actividad</p><h2>Top ranking</h2><p class="intro-copy">Reconoce la constancia de la comunidad en cada categoría.</p></div><button class="primary-action" id="btnRefreshRanking">☷ Actualizar ranking</button></div>
+      <div class="ranking-grid"><article class="surface ranking-card"><p class="eyebrow">Asistencias</p><div class="ranking-winner" id="rankingWinnerAtt"></div><ol id="rankingListAtt"></ol></article><article class="surface ranking-card"><p class="eyebrow">Tiempos en Base</p><div class="ranking-winner" id="rankingWinnerTime"></div><ol id="rankingListTime"></ol></article><article class="surface ranking-card"><p class="eyebrow">Ascensos</p><div class="ranking-winner" id="rankingWinnerPromo"></div><ol id="rankingListPromo"></ol></article></div>
     </section>
 
     <section class="view" id="view-operations">
-      <div class="view-intro compact"><div><p class="eyebrow">Ventas y traslados</p><h2>Operaciones</h2><p class="intro-copy">Centraliza ventas, saldos pendientes y altas provenientes de otras agencias.</p></div><button class="primary-action" data-demo-action="Nueva operación">+ Nueva operación</button></div>
-      <div class="operation-summary"><article class="surface"><small>VENTAS DEL MES</small><strong>1,245 c</strong><span class="positive">↑ 18% vs. agosto</span></article><article class="surface"><small>SALDO PENDIENTE</small><strong>1,000 c</strong><span>1 encargado</span></article><article class="surface"><small>TRASLADOS</small><strong>18</strong><span>Este mes</span></article></div>
-      <div class="overview-grid"><article class="surface table-surface"><div class="surface-heading"><div><p class="eyebrow">Últimas ventas</p><h3>Historial comercial</h3></div><button class="dots">•••</button></div><table><thead><tr><th>USUARIO</th><th>CONCEPTO</th><th>CRÉDITOS</th><th>ESTADO</th></tr></thead><tbody><tr><td>Berna.</td><td>Silver</td><td>39 c</td><td><span class="status away">Pendiente</span></td></tr><tr><td>melany1999</td><td>Reducción</td><td>30 c</td><td><span class="status online">Pagado</span></td></tr><tr><td>4karen</td><td>Guarda paga</td><td>25 c</td><td><span class="status online">Pagado</span></td></tr></tbody></table></article><article class="surface table-surface"><div class="surface-heading"><div><p class="eyebrow">Traslados</p><h3>Altas recientes</h3></div><button class="dots">•••</button></div><table><thead><tr><th>USUARIO</th><th>AGENCIA</th><th>RANGO</th></tr></thead><tbody><tr><td>:Mariee!_</td><td>Orion</td><td>PRE · Iniciado</td></tr><tr><td>elmodeloaseguir</td><td>Elite</td><td>SUP · Iniciado</td></tr><tr><td>Renzz</td><td>Hospital</td><td>TEC · Iniciado</td></tr></tbody></table></article></div>
+      <div class="view-intro compact">
+        <div>
+          <p class="eyebrow">Ventas y traslados</p>
+          <h2>Operaciones</h2>
+          <p class="intro-copy">Centraliza ventas, saldos pendientes y altas provenientes de otras agencias.</p>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <button class="filter-button" id="btnRefreshOperations">☷ Actualizar</button>
+          <button class="primary-action" id="btnOpenNewOperationModal">+ Nueva operación</button>
+        </div>
+      </div>
+      <div class="operation-summary" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+        <article class="surface">
+          <small>INGRESOS TOTALES</small>
+          <strong id="finGrossSales">0 c</strong>
+          <span class="positive">Ventas + Membresías</span>
+        </article>
+        <article class="surface">
+          <small>GASTO EN NÓMINA</small>
+          <strong id="finPayrollExpense" style="color:#f59e9e;">0 c</strong>
+          <span style="color:#d99;">Créditos repartidos</span>
+        </article>
+        <article class="surface accent">
+          <small>BALANCE NETO</small>
+          <strong id="finNetBalance" style="color:var(--yellow);">0 c</strong>
+          <span id="finNetStatus" class="positive">Superávit positivo</span>
+        </article>
+        <article class="surface">
+          <small>SALDO PENDIENTE</small>
+          <strong id="opPendingCredits">0 c</strong>
+          <span id="opPendingCountLabel">0 pendientes</span>
+        </article>
+        <article class="surface">
+          <small>TRASLADOS</small>
+          <strong id="opTransfersCount">0</strong>
+          <span>Convalidados este mes</span>
+        </article>
+      </div>
+
+      <div class="surface" style="margin-bottom:20px;padding:16px 20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div>
+            <p class="eyebrow" style="margin:0;">Rendimiento Comercial</p>
+            <h3 style="margin:4px 0 0 0;font-size:16px;">Top Vendedores de la Agencia</h3>
+          </div>
+          <span style="font-size:12px;color:#a8a096;">Comisiones y recaudación</span>
+        </div>
+        <div id="financesTopSellersList" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:12px;">
+          <div style="color:#888;font-size:13px;">Cargando comerciales...</div>
+        </div>
+      </div>
+      <div class="overview-grid">
+        <article class="surface table-surface">
+          <div class="surface-heading">
+            <div>
+              <p class="eyebrow">Últimas ventas</p>
+              <h3>Historial comercial</h3>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>USUARIO</th>
+                <th>CONCEPTO</th>
+                <th>CRÉDITOS</th>
+                <th>ENCARGADO</th>
+                <th>ESTADO</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="salesTableBody"></tbody>
+          </table>
+        </article>
+        <article class="surface table-surface">
+          <div class="surface-heading">
+            <div>
+              <p class="eyebrow">Traslados</p>
+              <h3>Altas recientes</h3>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>USUARIO</th>
+                <th>AGENCIA</th>
+                <th>RANGO</th>
+                <th>ENCARGADO</th>
+                <th>ESTADO</th>
+              </tr>
+            </thead>
+            <tbody id="transfersTableBody"></tbody>
+          </table>
+        </article>
+      </div>
     </section>
 
     <section class="view" id="view-missions">
-      <div class="view-intro compact"><div><p class="eyebrow">Rangos y progresión</p><h2>Misiones</h2><p class="intro-copy">Asigna nuevas misiones y registra compras de rango.</p></div><button class="primary-action" data-demo-action="Gestionar catálogo">Gestionar catálogo</button></div>
-      <div class="mission-layout"><article class="surface settings-card"><p class="eyebrow">Nueva misión</p><h3>Preparar operación</h3><label>Usuario<select><option>R3belde</option><option>Berna.</option><option>Ailin:0</option></select></label><label>Nueva misión<select><option>DIR · Iniciado J</option><option>DIR · Bajo I</option><option>DIR · Novato H</option></select></label><div class="price-breakdown"><span>Precio <b>270 c</b></span><span>Descuento <b>0%</b></span><span>Total <b>270 c</b></span></div><button class="primary-action" data-demo-action="Registrar misión">Registrar misión</button></article><article class="surface table-surface"><div class="surface-heading"><div><p class="eyebrow">Historial</p><h3>Misiones recientes</h3></div><div class="search-box compact-search">⌕ <input placeholder="Buscar..." /></div></div><table><thead><tr><th>USUARIO</th><th>MISIÓN</th><th>ENCARGADO</th><th>CRÉDITOS</th></tr></thead><tbody><tr><td>Rocanroler_</td><td>SUP · Iniciado J</td><td>keekit08</td><td>285 c</td></tr><tr><td>Ailin:0</td><td>SUP · Intermedio D</td><td>keekit08</td><td>240 c</td></tr><tr><td>SaulSoprano</td><td>OPE · Iniciado J</td><td>MatteoMessina.</td><td>380 c</td></tr></tbody></table></article></div>
+      <div class="view-intro compact">
+        <div>
+          <p class="eyebrow">Rangos y progresión</p>
+          <h2>Misiones y Compra de Rangos</h2>
+          <p class="intro-copy">Asigna misiones oficiales de subdivisión o registra compras de rango con acreditación comercial.</p>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="filter-button" id="btnRefreshMissions">☷ Actualizar</button>
+          <button class="primary-action" id="btnGoToPromotions">Ir a Ascensos por Mérito →</button>
+        </div>
+      </div>
+      <div class="mission-layout">
+        <article class="surface settings-card">
+          <form id="missionPurchaseForm">
+            <p class="eyebrow">Operación comercial / Rango</p>
+            <h3>Asignar o Vender Misión</h3>
+            <label>Usuario a quien asignar
+              <select id="missionUserSelect" required></select>
+            </label>
+            <label>Filtrar por Rango
+              <select id="missionRankSelect">
+                <option value="all">Todos los rangos</option>
+              </select>
+            </label>
+            <label>Misión oficial de subdivisión
+              <select id="missionSelect" required></select>
+            </label>
+            <label>Descuento comercial (%)
+              <input type="number" id="missionDiscountInput" min="0" max="100" value="0" />
+            </label>
+            <label>Observaciones de la operación
+              <input id="missionNotesInput" placeholder="Ej: Venta de rango pagada en sala" />
+            </label>
+            <div class="price-breakdown">
+              <span>Precio base<b id="missionPriceLabel">0 c</b></span>
+              <span>Descuento<b id="missionDiscountLabel">0%</b></span>
+              <span>Total a cobrar<b id="missionTotalLabel">0 c</b></span>
+            </div>
+            <button type="submit" class="primary-action" id="btnSubmitMissionPurchase" style="width:100%;">Registrar misión y cobro</button>
+          </form>
+        </article>
+        <article class="surface table-surface">
+          <div class="surface-heading">
+            <div>
+              <p class="eyebrow">Historial</p>
+              <h3>Misiones y compras recientes</h3>
+            </div>
+            <div class="search-box compact-search">
+              ⌕ <input id="missionsHistorySearch" placeholder="Buscar..." />
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>USUARIO</th>
+                <th>MISIÓN ASIGNADA</th>
+                <th>MODALIDAD</th>
+                <th>ENCARGADO</th>
+                <th>CRÉDITOS</th>
+                <th>FECHA</th>
+              </tr>
+            </thead>
+            <tbody id="missionsHistoryTableBody"></tbody>
+          </table>
+        </article>
+      </div>
     </section>
 
     <section class="view" id="view-discipline">
-      <div class="view-intro compact"><div><p class="eyebrow">Moderación interna</p><h2>Disciplina</h2><p class="intro-copy">Multas, degradaciones, despidos y control de clones en un solo lugar.</p></div><button class="primary-action" data-demo-action="Nueva incidencia">+ Nueva incidencia</button></div>
-      <div class="discipline-tabs" role="tablist"><button class="active" data-case-filter="all">Todos <b>10</b></button><button data-case-filter="fine">Multas <b>4</b></button><button data-case-filter="demotion">Degrados <b>3</b></button><button data-case-filter="dismissal">Despedidos <b>3</b></button><button data-case-filter="clone">Clones</button></div>
-      <div class="surface table-surface"><table><thead><tr><th>USUARIO</th><th>TIPO</th><th>MOTIVO</th><th>ENCARGADO</th><th>FECHA</th><th>ESTADO</th><th></th></tr></thead><tbody id="disciplineRows"><tr data-case="fine"><td><b>-spcy</b></td><td><span class="case-pill fine">Multa · 10 c</span></td><td>Comentarios inadecuados</td><td>Jo.C</td><td>15 sep</td><td><span class="status away">Pendiente</span></td><td><button class="row-menu">•••</button></td></tr><tr data-case="demotion"><td><b>pgg-Pedro</b></td><td><span class="case-pill demotion">Degrado</span></td><td>Clon en otra agencia</td><td>keekit08</td><td>10 sep</td><td><span class="status online">Aplicado</span></td><td><button class="row-menu">•••</button></td></tr><tr data-case="dismissal"><td><b>ChanelStyles</b></td><td><span class="case-pill dismissal">Despido</span></td><td>Marcharse sin avisar</td><td>RosalBoy</td><td>06 sep</td><td><span class="status online">Registrado</span></td><td><button class="row-menu">•••</button></td></tr><tr data-case="clone"><td><b>melany1999</b></td><td><span class="case-pill clone">Clon</span></td><td>Usuario autorizado</td><td>keekit08</td><td>02 sep</td><td><span class="status online">Permitido</span></td><td><button class="row-menu">•••</button></td></tr></tbody></table></div>
+      <div class="view-intro compact">
+        <div>
+          <p class="eyebrow">Moderación interna</p>
+          <h2>Disciplina y Control Operativo</h2>
+          <p class="intro-copy">Multas en créditos, degradaciones de rango, despidos y autorización de clones.</p>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="filter-button" id="btnRefreshDiscipline">☷ Actualizar</button>
+          <button class="primary-action" id="btnOpenIncidentModal">+ Nueva incidencia</button>
+        </div>
+      </div>
+      <div class="discipline-tabs" role="tablist">
+        <button class="active" id="btnFilterDiscAll" data-case-filter="all">Todos <b id="discCountAll">0</b></button>
+        <button id="btnFilterDiscFine" data-case-filter="fine">Multas <b id="discCountFine">0</b></button>
+        <button id="btnFilterDiscDemotion" data-case-filter="demotion">Degrados <b id="discCountDemotion">0</b></button>
+        <button id="btnFilterDiscDismissal" data-case-filter="dismissal">Despedidos <b id="discCountDismissal">0</b></button>
+        <button id="btnFilterDiscClone" data-case-filter="clone">Clones <b id="discCountClone">0</b></button>
+        <div class="search-box compact-search" style="margin-left:auto;">
+          ⌕ <input id="disciplineSearchInput" placeholder="Buscar incidencia..." />
+        </div>
+      </div>
+      <div class="surface table-surface">
+        <table>
+          <thead>
+            <tr>
+              <th>USUARIO</th>
+              <th>TIPO</th>
+              <th>MOTIVO</th>
+              <th>ENCARGADO</th>
+              <th>FECHA</th>
+              <th>ESTADO</th>
+              <th>ACCIONES</th>
+            </tr>
+          </thead>
+          <tbody id="disciplineRows"></tbody>
+        </table>
+      </div>
     </section>
 
     <section class="view" id="view-content">
-      <div class="view-intro compact"><div><p class="eyebrow">Sitio público</p><h2>Contenido</h2><p class="intro-copy">Gestiona el banner, el equipo visible y los empleados del mes.</p></div><button class="primary-action" data-demo-action="Publicar cambios">Publicar cambios</button></div>
-      <article class="banner-preview"><div><span class="eyebrow">BANNER ACTIVO</span><h3>Agencia Shein</h3><p>Disfruta de sorteos y premios semanales.</p></div><span class="banner-mark">S</span><button class="outline-action" data-demo-action="Editar banner">Editar banner</button></article>
-      <div class="content-admin-grid"><article class="surface"><div class="surface-heading"><div><p class="eyebrow">Reconocimiento</p><h3>Empleados del mes</h3></div><button class="dots">•••</button></div><div class="featured-people"><span><i class="habbo-avatar yellow-avatar">K</i><b>keekit08</b><small>Agosto</small></span><span><i class="habbo-avatar pink-avatar">G</i><b>Gusgus95MX</b><small>Agosto</small></span><span><i class="habbo-avatar blue-avatar">P</i><b>pgg-Pedro</b><small>Agosto</small></span></div></article><article class="surface"><div class="surface-heading"><div><p class="eyebrow">Equipo</p><h3>Rangos visibles</h3></div><button class="dots">•••</button></div><div class="role-cloud"><span>Agente</span><span>Seguridad</span><span>Técnico</span><span>Logística</span><span>Supervisor</span><span>Director</span><span>Presidente</span><span>Operativo</span><span>Junta directiva</span></div></article></div>
+      <div class="view-intro compact">
+        <div>
+          <p class="eyebrow">Sitio público</p>
+          <h2>Contenido</h2>
+          <p class="intro-copy">Gestiona el banner, el equipo visible y los empleados del mes.</p>
+        </div>
+        <button class="primary-action" id="btnPublishContentChanges">Publicar cambios en el sitio</button>
+      </div>
+      <article class="banner-preview">
+        <div>
+          <span class="eyebrow" id="contentBannerBadge">BANNER ACTIVO</span>
+          <h3 id="contentBannerTitle">Agencia Shein</h3>
+          <p id="contentBannerSubtitle">Disfruta de sorteos y premios semanales.</p>
+        </div>
+        <span class="banner-mark">S</span>
+        <button class="outline-action" id="btnOpenEditBannerModal">Editar banner</button>
+      </article>
+      <div class="content-admin-grid">
+        <article class="surface">
+          <div class="surface-heading">
+            <div>
+              <p class="eyebrow">Reconocimiento</p>
+              <h3>Empleados del mes</h3>
+            </div>
+            <button class="filter-button" id="btnEditStaffOfMonth">✎ Modificar</button>
+          </div>
+          <div class="featured-people" id="contentFeaturedPeople"></div>
+        </article>
+        <article class="surface">
+          <div class="surface-heading">
+            <div>
+              <p class="eyebrow">Equipo</p>
+              <h3>Rangos visibles</h3>
+            </div>
+            <button class="filter-button" id="btnRefreshContentRanks">☷ Sincronizar</button>
+          </div>
+          <div class="role-cloud" id="contentRoleCloud"></div>
+        </article>
+      </div>
     </section>
 
     <section class="view" id="view-audit">
-      <div class="view-intro compact"><div><p class="eyebrow">Trazabilidad</p><h2>Registros</h2><p class="intro-copy">Consulta cambios sensibles y movimientos por fecha y categoría.</p></div><button class="primary-action" data-demo-action="Exportar registros">Exportar CSV ↗</button></div>
-      <div class="audit-filters"><label>Desde<input type="date" value="2026-09-01" /></label><label>Hasta<input type="date" value="2026-09-26" /></label><label>Categoría<select><option>Todas</option><option>Ascensos</option><option>Rangos</option><option>Membresías</option><option>Fichajes</option></select></label><button class="dark-action" data-demo-action="Filtrar registros">Aplicar filtros</button></div>
-      <div class="surface table-surface"><table><thead><tr><th>FECHA</th><th>ACCIÓN</th><th>USUARIO</th><th>ENCARGADO</th><th>DETALLE</th></tr></thead><tbody><tr><td>26 sep · 21:42</td><td><span class="audit-icon coral-bg">↑</span> Ascenso</td><td>R3belde</td><td>keekit08</td><td>Supervisor → Director</td></tr><tr><td>26 sep · 20:18</td><td><span class="audit-icon yellow-bg">✦</span> Membresía</td><td>Lunita_Shein</td><td>MitsunoNakae087</td><td>Silver activada</td></tr><tr><td>25 sep · 22:03</td><td><span class="audit-icon lavender-bg">◇</span> Paga</td><td>176 miembros</td><td>Jo.C</td><td>1,760 créditos procesados</td></tr><tr><td>25 sep · 19:54</td><td><span class="audit-icon green-bg">✓</span> Fichaje</td><td>Ailin:0</td><td>Sistema</td><td>Asistencia confirmada</td></tr></tbody></table></div>
+      <div class="view-intro compact">
+        <div>
+          <p class="eyebrow">Trazabilidad oficial</p>
+          <h2>Registros de Auditoría</h2>
+          <p class="intro-copy">Consulta cambios sensibles, movimientos de personal y finanzas con filtros en tiempo real.</p>
+        </div>
+        <button class="primary-action" id="btnExportAuditCsv">Exportar CSV ↗</button>
+      </div>
+      <div class="audit-filters">
+        <label>Desde<input type="date" id="auditFilterFrom" /></label>
+        <label>Hasta<input type="date" id="auditFilterTo" /></label>
+        <label>Categoría
+          <select id="auditFilterCategory">
+            <option value="all">Todas las categorías</option>
+            <option value="promotions">Ascensos</option>
+            <option value="ranks">Rangos y Misiones</option>
+            <option value="memberships">Membresías</option>
+            <option value="attendance">Fichajes y Asistencia</option>
+            <option value="payroll">Pagas y Nómina</option>
+            <option value="discipline">Disciplina</option>
+          </select>
+        </label>
+        <button class="dark-action" id="btnApplyAuditFilters">Aplicar filtros</button>
+      </div>
+      <div class="surface table-surface">
+        <table>
+          <thead>
+            <tr>
+              <th>FECHA</th>
+              <th>ACCIÓN</th>
+              <th>USUARIO</th>
+              <th>ENCARGADO</th>
+              <th>DETALLE</th>
+            </tr>
+          </thead>
+          <tbody id="auditTableBody"></tbody>
+        </table>
+      </div>
     </section>
 
     <section class="view" id="view-tools">
-      <div class="view-intro compact"><div><p class="eyebrow">Administración avanzada</p><h2>Herramientas</h2><p class="intro-copy">Permisos, requisitos, firmas, descuentos y mantenimiento.</p></div><span class="pending-badge">Solo propietarios</span></div>
-      <div class="tool-grid"><article class="surface tool-card"><span>⌘</span><div><h3>Permisos por rango</h3><p>Configura el acceso de los 13 rangos y 4 departamentos.</p></div><button class="outline-action" data-demo-action="Abrir permisos">Configurar</button></article><article class="surface tool-card"><span>▤</span><div><h3>Requisitos personalizados</h3><p>Ajusta nómina y bonificaciones para casos especiales.</p></div><button class="outline-action" data-demo-action="Abrir requisitos">Gestionar</button></article><article class="surface tool-card"><span>✎</span><div><h3>Firmas</h3><p>Registra y consulta firmas administrativas.</p></div><button class="outline-action" data-demo-action="Abrir firmas">Gestionar</button></article><article class="surface tool-card"><span>%</span><div><h3>Descuentos</h3><p>Dos códigos activos: shein 30% y rosalboy 20%.</p></div><button class="outline-action" data-demo-action="Abrir descuentos">Gestionar</button></article><article class="surface tool-card"><span>↻</span><div><h3>Reposición</h3><p>Control de créditos, rangos y beneficios restituidos.</p></div><button class="outline-action" data-demo-action="Abrir reposición">Abrir</button></article><article class="surface tool-card"><span>⚙</span><div><h3>Mantenimiento</h3><p>Redes, pre-registro y estado del foro.</p></div><button class="outline-action" data-view-action="settings">Revisar</button></article></div>
+      <div class="view-intro compact">
+        <div>
+          <p class="eyebrow">Administración avanzada</p>
+          <h2>Herramientas</h2>
+          <p class="intro-copy">Permisos, requisitos, firmas, descuentos y mantenimiento de la agencia.</p>
+        </div>
+        <span class="pending-badge">Solo propietarios</span>
+      </div>
+      <div class="tool-grid">
+        <article class="surface tool-card">
+          <span>⌘</span>
+          <div>
+            <h3>Permisos por rango</h3>
+            <p>Configura el acceso de los 13 rangos y 4 departamentos.</p>
+          </div>
+          <button class="outline-action" id="btnToolPerms">Configurar</button>
+        </article>
+        <article class="surface tool-card">
+          <span>▤</span>
+          <div>
+            <h3>Requisitos personalizados</h3>
+            <p>Ajusta nómina y bonificaciones para casos especiales.</p>
+          </div>
+          <button class="outline-action" id="btnToolReqs">Gestionar</button>
+        </article>
+        <article class="surface tool-card">
+          <span>✎</span>
+          <div>
+            <h3>Firmas</h3>
+            <p>Registra y consulta firmas administrativas oficiales.</p>
+          </div>
+          <button class="outline-action" id="btnToolSignatures">Gestionar</button>
+        </article>
+        <article class="surface tool-card">
+          <span>%</span>
+          <div>
+            <h3>Descuentos</h3>
+            <p>Códigos y descuentos comerciales para sala de ventas.</p>
+          </div>
+          <button class="outline-action" id="btnToolDiscounts">Gestionar</button>
+        </article>
+        <article class="surface tool-card">
+          <span>↻</span>
+          <div>
+            <h3>Reposición</h3>
+            <p>Control de créditos, rangos y beneficios restituidos.</p>
+          </div>
+          <button class="outline-action" id="btnToolRestitution">Abrir</button>
+        </article>
+        <article class="surface tool-card">
+          <span>⚙</span>
+          <div>
+            <h3>Mantenimiento</h3>
+            <p>Redes, pre-registro y ajustes generales de la web.</p>
+          </div>
+          <button class="outline-action" id="btnToolMaintenance">Revisar</button>
+        </article>
+        <article class="surface tool-card">
+          <span>💾</span>
+          <div>
+            <h3>Copia de Seguridad SQL</h3>
+            <p>Descarga un dump completo en archivo .sql con esquema y todos los datos.</p>
+          </div>
+          <button class="outline-action" id="btnDownloadSqlBackup">Descargar SQL</button>
+        </article>
+        <article class="surface tool-card">
+          <span>📺</span>
+          <div>
+            <h3>Modo Pantalla / Kiosco</h3>
+            <p>Abre la pantalla en vivo de sala para segundo monitor o transmisión en Discord.</p>
+          </div>
+          <a class="outline-action" href="kiosk.html" target="_blank" style="text-align:center;text-decoration:none;display:inline-block;">Abrir Kiosco ↗</a>
+        </article>
+      </div>
     </section>
+
     <section class="view" id="view-account">
-      <div class="view-intro compact"><div><p class="eyebrow">Espacio personal</p><h2>Mi cuenta</h2><p class="intro-copy">Tu progreso, solicitudes y preferencias en un único lugar.</p></div><button class="primary-action" data-demo-action="Actualizar perfil">Actualizar perfil</button></div>
-      <div class="account-hero"><div class="account-person"><span class="account-avatar">K</span><div><small>DUEÑO · ID 17</small><h3>keekit08</h3><p>SHN · Dueño · KEK · GUS</p></div></div><div class="account-next"><small>SIGUIENTE ASCENSO</small><strong>Completado</strong><span class="positive">Listo para revisión</span></div><div class="account-payment"><small>PRÓXIMA PAGA</small><strong>Bonificación · 45 c</strong><span>Placa pendiente</span></div></div>
-      <div class="account-tabs" role="tablist"><button class="active" data-account-tab="progress">Progreso</button><button data-account-tab="requests">Solicitudes</button><button data-account-tab="birthday">Cumpleaños</button><button data-account-tab="name">Cambio de nombre</button><button data-account-tab="status">Estado</button><button data-account-tab="preferences">Preferencias</button></div>
-      <div class="account-panel active" data-account-panel="progress"><div class="account-metrics"><article><span>↑</span><strong>3</strong><small>Ascensos</small></article><article><span>✓</span><strong>6h 55m</strong><small>Asistencia</small></article><article><span>◷</span><strong>0</strong><small>Tiempos</small></article><article><span>✦</span><strong>28 días</strong><small>Reducción activa</small></article></div><div class="surface table-surface"><div class="surface-heading"><div><p class="eyebrow">Historial</p><h3>Últimos ascensos</h3></div></div><table><thead><tr><th>MISIÓN</th><th>ENCARGADO</th><th>FECHA</th></tr></thead><tbody><tr><td>SHN · Dueño · KEK · GUS</td><td>Gusgus95MX</td><td>26 sep 2026</td></tr><tr><td>SHN · PRE · Auxiliar G</td><td>Gusgus95MX</td><td>25 sep 2026</td></tr><tr><td>SHN · PRE · Novato H</td><td>Gusgus95MX</td><td>15 sep 2026</td></tr></tbody></table></div></div>
-      <div class="account-panel" data-account-panel="requests"><div class="empty-state surface"><span>✓</span><strong>No tienes solicitudes pendientes</strong><small>Los ascensos y tiempos enviados aparecerán aquí.</small><button class="outline-action" data-demo-action="Actualizar solicitudes">Actualizar</button></div></div>
-      <div class="account-panel" data-account-panel="birthday"><article class="surface settings-card"><p class="eyebrow">Calendario</p><h3>Tu cumpleaños</h3><p class="intro-copy">Añade la fecha para que la comunidad pueda celebrarlo contigo.</p><label>Fecha de cumpleaños<input type="date" /></label><button class="primary-action" data-demo-action="Guardar cumpleaños">Guardar fecha</button></article></div>
-      <div class="account-panel" data-account-panel="name"><article class="surface settings-card"><p class="eyebrow">Identidad</p><h3>Solicitar cambio de nombre</h3><label>Nombre actual<input value="keekit08" readonly /></label><label>Nuevo nombre<input placeholder="Nuevo usuario de Habbo" /></label><button class="primary-action" data-demo-action="Solicitar cambio de nombre">Enviar solicitud</button></article></div>
-      <div class="account-panel" data-account-panel="status"><article class="surface settings-card"><p class="eyebrow">Estado público</p><h3>¿Qué está pasando?</h3><label>Estado<textarea placeholder="Escribe un estado para la comunidad..."></textarea></label><button class="primary-action" data-demo-action="Publicar estado">Publicar estado</button></article></div>
-      <div class="account-panel" data-account-panel="preferences"><div class="settings-grid"><article class="surface settings-card"><p class="eyebrow">Notificaciones</p><h3>Preferencias</h3><label class="toggle-row"><span>Mostrar estados</span><input type="checkbox" checked /></label><label class="toggle-row"><span>Avisar membresías por expirar</span><input type="checkbox" checked /></label><label class="toggle-row"><span>Menú siempre visible</span><input type="checkbox" /></label></article><article class="surface settings-card"><p class="eyebrow">Seguridad</p><h3>Cambio de clave</h3><label>Clave actual<input type="password" /></label><label>Nueva clave<input type="password" /></label><button class="dark-action" data-demo-action="Cambiar clave">Actualizar clave</button></article></div></div>
+      <div class="view-intro compact">
+        <div>
+          <p class="eyebrow">Espacio personal</p>
+          <h2>Mi cuenta</h2>
+          <p class="intro-copy">Tu progreso, solicitudes y preferencias en un único lugar.</p>
+        </div>
+        <button class="primary-action" id="btnRefreshAccountProfile">↻ Actualizar perfil</button>
+      </div>
+      <div class="account-hero">
+        <div class="account-person">
+          <span class="account-avatar" id="accHeroAvatar">K</span>
+          <div>
+            <small id="accHeroMeta">CARGANDO...</small>
+            <h3 id="accHeroUsername">-</h3>
+            <p id="accHeroMission">-</p>
+            <button type="button" class="btn-copy" id="btnCopyAccMission" style="margin-top:6px;font-size:11px;">📋 Copiar mi misión</button>
+          </div>
+        </div>
+        <div class="account-next">
+          <small>ESTADO DE CUENTA</small>
+          <strong id="accHeroStatus">Activo</strong>
+          <span class="positive" id="accHeroRankName">-</span>
+        </div>
+        <div class="account-payment">
+          <small>MEMBRESÍA ACTIVA</small>
+          <strong id="accHeroMembership">Ninguna</strong>
+          <span id="accHeroMembershipExpiry">Sin caducidad</span>
+          <div id="accMembershipAlert" style="margin-top:6px;display:none;"></div>
+        </div>
+      </div>
+      <div class="account-tabs" role="tablist">
+        <button class="active" data-account-tab="progress">Progreso</button>
+        <button data-account-tab="requests">Solicitudes</button>
+        <button data-account-tab="birthday">Cumpleaños</button>
+        <button data-account-tab="name">Cambio de nombre</button>
+        <button data-account-tab="status">Estado</button>
+        <button data-account-tab="preferences">Preferencias</button>
+      </div>
+      <div class="account-panel active" data-account-panel="progress">
+        <div class="career-progress-widget" id="accCareerProgressWidget" style="margin-bottom:18px;background:#242220;border:1px solid #3a3631;border-radius:10px;padding:14px 18px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-size:12px;color:#a8a096;">Progreso de carrera en <strong id="accProgressRankName" style="color:#fff;">-</strong></span>
+            <span style="font-size:12px;color:var(--yellow);font-weight:700;" id="accProgressText">0 / 10 (0%)</span>
+          </div>
+          <div class="career-track">
+            <div class="career-track-bar" id="accProgressBar" style="width:0%;"></div>
+          </div>
+          <small style="display:block;margin-top:8px;font-size:11px;color:#888;" id="accProgressNextMilestone">Próximo objetivo: Calculando...</small>
+        </div>
+        <div class="account-metrics">
+          <article><span>↑</span><strong id="accMetricPromos">0</strong><small>Ascensos acumulados</small></article>
+          <article><span>✓</span><strong id="accMetricAtt">0</strong><small>Asistencias</small></article>
+          <article><span>◷</span><strong id="accMetricTime">0h</strong><small>Tiempos en base</small></article>
+          <article><span>✦</span><strong id="accMetricReduction">0%</strong><small>Reducción activa</small></article>
+        </div>
+        <div class="surface table-surface">
+          <div class="surface-heading">
+            <div>
+              <p class="eyebrow">Trazabilidad</p>
+              <h3>Tus ascensos registrados</h3>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>MISIÓN ANTERIOR</th>
+                <th>NUEVA MISIÓN</th>
+                <th>ENCARGADO</th>
+                <th>FECHA</th>
+              </tr>
+            </thead>
+            <tbody id="accPromotionsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="account-panel" data-account-panel="requests">
+        <div class="empty-state surface">
+          <span>✓</span>
+          <strong>No tienes solicitudes pendientes</strong>
+          <small>Las solicitudes de ingreso o ascensos enviados aparecerán aquí.</small>
+          <button class="outline-action" id="btnRefreshAccountRequests">Actualizar</button>
+        </div>
+      </div>
+      <div class="account-panel" data-account-panel="birthday">
+        <article class="surface settings-card">
+          <p class="eyebrow">Calendario</p>
+          <h3>Tu cumpleaños</h3>
+          <p class="intro-copy">Añade la fecha para que la comunidad pueda celebrarlo contigo.</p>
+          <form id="accBirthdayForm">
+            <label>Fecha de cumpleaños
+              <input type="date" id="accBirthdayInput" required />
+            </label>
+            <button type="submit" class="primary-action">Guardar fecha</button>
+          </form>
+        </article>
+      </div>
+      <div class="account-panel" data-account-panel="name">
+        <article class="surface settings-card">
+          <p class="eyebrow">Identidad</p>
+          <h3>Solicitar cambio de nombre</h3>
+          <form id="accNameChangeForm">
+            <label>Nombre actual<input id="accCurrentNameInput" readonly /></label>
+            <label>Nuevo nombre<input id="accDesiredNameInput" required placeholder="Nuevo usuario de Habbo" /></label>
+            <button type="submit" class="primary-action">Enviar solicitud</button>
+          </form>
+        </article>
+      </div>
+      <div class="account-panel" data-account-panel="status">
+        <article class="surface settings-card">
+          <p class="eyebrow">Estado público</p>
+          <h3>¿Qué está pasando?</h3>
+          <form id="accStatusForm">
+            <label>Estado
+              <textarea id="accStatusInput" placeholder="Escribe un estado para la comunidad..."></textarea>
+            </label>
+            <button type="submit" class="primary-action">Publicar estado</button>
+          </form>
+        </article>
+      </div>
+      <div class="account-panel" data-account-panel="preferences">
+        <div class="settings-grid">
+          <article class="surface settings-card">
+            <p class="eyebrow">Notificaciones</p>
+            <h3>Preferencias</h3>
+            <label class="toggle-row"><span>Mostrar estados de compañeros</span><input type="checkbox" checked /></label>
+            <label class="toggle-row"><span>Avisar membresías por expirar</span><input type="checkbox" checked /></label>
+            <label class="toggle-row"><span>Menú lateral siempre visible</span><input type="checkbox" /></label>
+          </article>
+          <article class="surface settings-card">
+            <p class="eyebrow">Seguridad</p>
+            <h3>Cambio de clave web</h3>
+            <form id="accPasswordForm">
+              <label>Clave actual<input type="password" id="accCurrentPassInput" required /></label>
+              <label>Nueva clave<input type="password" id="accNewPassInput" required minlength="4" /></label>
+              <button type="submit" class="dark-action" style="margin-top:10px;">Actualizar clave</button>
+            </form>
+          </article>
+        </div>
+      </div>
     </section>
 
     <section class="view" id="view-ranks">
-      <div class="view-intro compact"><div><p class="eyebrow">Información de carrera</p><h2>Rangos</h2><p class="intro-copy">Explora las rutas disponibles y calcula el valor de un traslado.</p></div><button class="primary-action" data-demo-action="Consultar catálogo">Ver catálogo completo</button></div>
-      <div class="rank-path"><span class="active">AGT<small>Agente</small></span><i></i><span>SEG<small>Seguridad</small></span><i></i><span>TEC<small>Técnico</small></span><i></i><span>LOG<small>Logística</small></span><i></i><span>SUP<small>Supervisor</small></span><i></i><span>DIR<small>Director</small></span><i></i><span>PRE<small>Presidente</small></span><i></i><span>OPE<small>Operativo</small></span></div>
-      <div class="rank-layout"><article class="surface settings-card"><p class="eyebrow">Calculadora</p><h3>Calcula tu rango</h3><label>Rango actual<select id="rankFrom"><option value="0">AGT · Iniciado J</option><option value="40">SEG · Iniciado J</option><option value="80">TEC · Iniciado J</option><option value="110">LOG · Iniciado J</option><option value="150">SUP · Iniciado J</option><option value="210">DIR · Iniciado J</option><option value="270">PRE · Iniciado J</option><option value="380">OPE · Iniciado J</option></select></label><label>Rango deseado<select id="rankTo"><option value="40">SEG · Iniciado J</option><option value="80">TEC · Iniciado J</option><option value="110">LOG · Iniciado J</option><option value="150">SUP · Iniciado J</option><option value="210">DIR · Iniciado J</option><option value="270">PRE · Iniciado J</option><option value="380">OPE · Iniciado J</option><option value="610">Junta Directiva</option></select></label><div class="rank-price"><small>PRECIO ESTIMADO</small><strong id="rankPrice">40 c</strong><span>El importe final puede incluir descuentos.</span></div></article><article class="surface table-surface"><div class="surface-heading"><div><p class="eyebrow">Escalera inicial</p><h3>Misiones por categoría</h3></div><select><option>Agente</option><option>Seguridad</option><option>Técnico</option></select></div><table><thead><tr><th>ORDEN</th><th>MISIÓN</th><th>PRECIO</th><th>VENTA</th></tr></thead><tbody><tr><td>01</td><td>Iniciado J</td><td>2 c</td><td>No disponible</td></tr><tr><td>02</td><td>Bajo I</td><td>3 c</td><td>No disponible</td></tr><tr><td>03</td><td>Novato H</td><td>4 c</td><td>Disponible</td></tr><tr><td>04</td><td>Auxiliar G</td><td>5 c</td><td>Disponible</td></tr><tr><td>05</td><td>Ayudante F</td><td>6 c</td><td>Disponible</td></tr></tbody></table></article></div>
+      <div class="view-intro compact"><div><p class="eyebrow">Escalafón Oficial</p><h2>Rangos y Placas</h2><p class="intro-copy">Consulta las placas oficiales de Habbo España, requisitos de nómina/bonificación y valores de traslado.</p></div><button class="primary-action" id="btnRefreshRanksTop">☷ Actualizar datos</button></div>
+      <div class="rank-path"><span class="active">AGT<small>Agente</small></span><i></i><span>SEG<small>Seguridad</small></span><i></i><span>TEC<small>Técnico</small></span><i></i><span>LOG<small>Logística</small></span><i></i><span>SUP<small>Supervisor</small></span><i></i><span>DIR<small>Director</small></span><i></i><span>PRE<small>Presidente</small></span><i></i><span>OPE<small>Operativo</small></span><i></i><span>JDT<small>Junta Directiva</small></span></div>
+      
+      <div class="surface table-surface" style="margin-bottom:24px;">
+        <div class="surface-heading">
+          <div>
+            <p class="eyebrow">Configuración del personal</p>
+            <h3>Tabla Maestra de Rangos</h3>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table id="ranksMasterTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>RANGO</th>
+                <th class="badge-col">PLACA</th>
+                <th>PAGA NÓMINA</th>
+                <th>PAGA BONI.</th>
+                <th>REQ. NÓMINA</th>
+                <th>REQ. BONIFICACIÓN</th>
+                <th>ASCIENDE HASTA</th>
+                <th>TIEMPO ESPERA</th>
+                <th>TRASLADO</th>
+                <th>COMISIÓN</th>
+              </tr>
+            </thead>
+            <tbody id="ranksTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="rank-layout">
+        <article class="surface settings-card">
+          <p class="eyebrow">Calculadora</p>
+          <h3>Calcula tu rango</h3>
+          <label>Rango actual<select id="rankFrom"></select></label>
+          <label>Rango deseado<select id="rankTo"></select></label>
+          <div class="rank-price"><small>PRECIO ESTIMADO</small><strong id="rankPrice">0 c</strong><span>El importe final puede incluir descuentos de agencia.</span></div>
+        </article>
+        <article class="surface table-surface">
+          <div class="surface-heading">
+            <div>
+              <p class="eyebrow">Subdivisiones</p>
+              <h3>Catálogo de Misiones</h3>
+            </div>
+            <select id="missionsRankFilter"></select>
+          </div>
+          <div style="overflow-x:auto;max-height:360px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>ORDEN</th>
+                  <th>MISIÓN</th>
+                  <th>PRECIO</th>
+                  <th>VENTA</th>
+                </tr>
+              </thead>
+              <tbody id="missionsTableBody"></tbody>
+            </table>
+          </div>
+        </article>
+      </div>
     </section>
 
     <section class="view" id="view-bot">
@@ -133,4 +865,554 @@
       <div class="bot-layout"><article class="surface settings-card"><p class="eyebrow">Mensaje de bienvenida</p><h3>Contenido del embed</h3><label class="toggle-row"><span>Mensaje activo</span><input type="checkbox" checked /></label><label>Canal<select><option>#bienvenidas</option><option>#información</option></select></label><label>Título<input value="¡Bienvenido a Agencia Shein!" /></label><label>Cuerpo<textarea>Lee las normas y verifica tu usuario para comenzar.</textarea></label><label>Color del embed<input type="color" value="#f05b4f" /></label><button class="primary-action" data-demo-action="Guardar bienvenida">Guardar mensaje</button></article><article class="surface settings-card"><p class="eyebrow">Automatizaciones</p><h3>Estado de funciones</h3><label class="toggle-row"><span>Verificación de rango</span><input type="checkbox" checked /></label><label class="toggle-row"><span>Avisos de membresía</span><input type="checkbox" checked /></label><label class="toggle-row"><span>Reevaluación automática</span><input type="checkbox" checked /></label><label class="toggle-row"><span>Sistema de tickets</span><input type="checkbox" checked /></label><label>Días de anticipación<input type="number" value="3" min="1" max="30" /></label><div class="bot-danger"><p><strong>Acciones técnicas</strong><small>Estas acciones solo están disponibles para propietarios.</small></p><button class="outline-action" data-demo-action="Reenviar canales de log">Reenviar logs</button></div></article></div>
     </section>
   </div></main>
-</div><div class="toast" id="toast">Cambios guardados en la demo ✓</div><script src="api-client.js"></script><script src="panel.js"></script><script src="habbo-avatars.js"></script><script src="panel-data.js"></script></body></html>
+</div>
+
+<div class="panel-modal" id="memberEditModal" hidden>
+  <div class="panel-modal-content surface">
+    <div class="modal-header">
+      <h3 id="editMemberTitle">Ficha de Integrante</h3>
+      <button type="button" class="modal-close" id="closeMemberModal">&times;</button>
+    </div>
+    <form id="editMemberForm">
+      <input type="hidden" id="editMemberId" />
+      <div class="modal-body">
+        <div class="edit-member-preview">
+          <div class="habbo-avatar" id="editMemberAvatar"></div>
+          <div>
+            <strong id="editMemberUsername"></strong>
+            <small id="editMemberCurrentRole"></small>
+          </div>
+        </div>
+        <label>Rango Oficial
+          <select id="editMemberRank"></select>
+        </label>
+        <label>Misión Actual en Habbo
+          <input id="editMemberMission" placeholder="Ej: SHN · SUP · Iniciado J [KEK/GUS]" />
+        </label>
+        <label>Departamento
+          <select id="editMemberDepartment">
+            <option value="">Sin departamento</option>
+            <option value="Recursos Humanos">Recursos Humanos (keekit08)</option>
+            <option value="Juegos y Eventos">Juegos y Eventos (keekit08)</option>
+            <option value="Gestión de Tiempos">Gestión de Tiempos (Jo.C)</option>
+            <option value="Marketing">Marketing (MitsunoNakae087)</option>
+          </select>
+        </label>
+        <label>Rol web (Nivel de Permisos)
+          <select id="editMemberRole">
+            <option value="member">Miembro</option>
+            <option value="supervisor">Supervisor</option>
+            <option value="admin">Administrador</option>
+            <option value="owner">Dueño</option>
+          </select>
+        </label>
+        <label>Estado de Actividad
+          <select id="editMemberStatus">
+            <option value="active">Activo</option>
+            <option value="away">Ausente</option>
+            <option value="inactive">Inactivo</option>
+            <option value="blocked">Bloqueado</option>
+          </select>
+        </label>
+        <div class="modal-actions-secondary" style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" class="btn-copy" id="btnCopyMemberMission">📋 Copiar misión</button>
+          <button type="button" class="filter-button" id="btnVerifyHabboMember">🔍 Verificar en Habbo.es</button>
+          <button type="button" class="filter-button" id="btnRenewMemberMembership" style="display:none;background:#243644;border-color:#386082;color:#9ad3fc;">🛡️ Renovar Membresía (+30d)</button>
+          <button type="button" class="outline-action" id="btnResetPassword">Restablecer contraseña web</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="dark-action" id="cancelMemberEdit">Cancelar</button>
+        <button type="submit" class="primary-action">Guardar cambios</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="panel-modal" id="timerModal" hidden>
+  <div class="panel-modal-content surface">
+    <div class="modal-header">
+      <h3>Ligar Tiempos en Base</h3>
+      <button type="button" class="modal-close" id="closeTimerModal">&times;</button>
+    </div>
+    <form id="timerForm">
+      <div class="modal-body">
+        <label>Integrante de la Agencia
+          <select id="timerUserSelect" required></select>
+        </label>
+        <label>Zona o Puesto
+          <select id="timerLocation">
+            <option value="Base" selected>Base (Principal)</option>
+            <option value="Entrenamiento">Entrenamiento</option>
+            <option value="Reclutamiento">Reclutamiento</option>
+            <option value="Seguridad">Seguridad / Puerta</option>
+          </select>
+        </label>
+        <label>Notas u Observaciones
+          <input id="timerNotes" placeholder="Ej: Cubriendo puesto de base..." />
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="dark-action" id="cancelTimerModal">Cancelar</button>
+        <button type="submit" class="primary-action">Iniciar timer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="panel-modal" id="attendanceModal" hidden>
+  <div class="panel-modal-content surface">
+    <div class="modal-header">
+      <h3>Nuevo Pase de Lista</h3>
+      <button type="button" class="modal-close" id="closeAttendanceModal">&times;</button>
+    </div>
+    <form id="attendanceForm">
+      <div class="modal-body">
+        <label>Nombre del Turno
+          <input id="attShiftInput" value="Turno noche · 22:00" required placeholder="Ej: Turno noche · 22:00" />
+        </label>
+        <label>Notas del Pase
+          <input id="attNotesInput" placeholder="Ej: Pase diario oficial España..." />
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="dark-action" id="cancelAttendanceModal">Cancelar</button>
+        <button type="submit" class="primary-action">Abrir pase de lista</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="panel-modal" id="payrollReviewModal" hidden>
+  <div class="panel-modal-content surface">
+    <div class="modal-header">
+      <h3>Revisión de Nómina</h3>
+      <button type="button" class="modal-close" id="closePayrollReviewModal">&times;</button>
+    </div>
+    <form id="payrollReviewForm">
+      <input type="hidden" id="reviewItemId" />
+      <div class="modal-body">
+        <div class="edit-member-preview">
+          <div class="habbo-avatar" id="reviewAvatar"></div>
+          <div>
+            <strong id="reviewUsername"></strong>
+            <small id="reviewRankDept"></small>
+          </div>
+        </div>
+        <div class="requirements-box" id="reviewStatsBox">
+          <div class="req-row"><span>Ascensos acumulados:</span> <b id="reviewPromoVal">0</b></div>
+          <div class="req-row"><span>Asistencias registradas:</span> <b id="reviewAttVal">0</b></div>
+          <div class="req-row"><span>Tiempos en base:</span> <b id="reviewTimeVal">0h 00m</b></div>
+          <div class="req-row"><span>Membresía activa:</span> <b id="reviewMemberVal">Ninguna</b></div>
+        </div>
+        <label>Modalidad de Paga
+          <select id="reviewQualificationSelect" required>
+            <option value="bonus">Bonificación (Alto rendimiento)</option>
+            <option value="nominal">Nómina (Requisitos cumplidos)</option>
+            <option value="review">Revisión (Requisitos pendientes)</option>
+          </select>
+        </label>
+        <label>Créditos a Pagar (c)
+          <input type="number" id="reviewCreditsInput" min="0" max="500" required />
+        </label>
+        <label>Motivo o Nota de Supervisión
+          <input id="reviewReasonInput" placeholder="Ej: Aprobado por esfuerzo extra en base..." />
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="dark-action" id="cancelPayrollReviewModal">Cancelar</button>
+        <button type="submit" class="primary-action">Guardar ajuste</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="panel-modal" id="manualPaymentModal" hidden>
+  <div class="panel-modal-content surface">
+    <div class="modal-header">
+      <h3>Registrar Paga Manual</h3>
+      <button type="button" class="modal-close" id="closeManualPaymentModal">&times;</button>
+    </div>
+    <form id="manualPaymentForm">
+      <div class="modal-body">
+        <label>Nombre del Turno
+          <input id="manualPayShift" value="Noche · España" required placeholder="Ej: Noche · España" />
+        </label>
+        <label>Total de Miembros Incluidos
+          <input type="number" id="manualPayMembers" value="180" min="1" required />
+        </label>
+        <label>Total de Créditos Repartidos (c)
+          <input type="number" id="manualPayCredits" value="1800" min="0" required />
+        </label>
+        <label>Notas u Observaciones
+          <input id="manualPayNotes" placeholder="Ej: Paga general turno noche..." />
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="dark-action" id="cancelManualPaymentModal">Cancelar</button>
+        <button type="submit" class="primary-action">Registrar en historial</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="panel-modal" id="membershipEditModal" hidden>
+  <div class="panel-modal-content surface">
+    <div class="modal-header">
+      <h3 id="membershipEditModalTitle">Beneficio / Membresía</h3>
+      <button type="button" class="modal-close" id="closeMembershipEditModal">&times;</button>
+    </div>
+    <form id="membershipEditForm">
+      <input type="hidden" id="editMembershipId" />
+      <div class="modal-body">
+        <label>Nombre de la Membresía
+          <input id="editMembershipName" required placeholder="Ej: PLATINUM" />
+        </label>
+        <label>Código de Placa Habbo
+          <input id="editMembershipBadge" placeholder="Ej: b22014s... (opcional)" />
+        </label>
+        <label>Precio en Créditos (c)
+          <input type="number" id="editMembershipPrice" min="0" value="30" required />
+        </label>
+        <label>Reducción de Requisitos (%)
+          <input type="number" id="editMembershipReduction" min="0" max="100" value="0" placeholder="0 para ninguna, 50 para 50%" />
+        </label>
+        <label>Descripción del Beneficio
+          <input id="editMembershipDesc" required placeholder="Ej: Acceso a base y fila VIP..." />
+        </label>
+        <label class="toggle-row">
+          <span>Disponible para venta en catálogo</span>
+          <input type="checkbox" id="editMembershipSale" checked />
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="dark-action" id="cancelMembershipEditModal">Cancelar</button>
+        <button type="submit" class="primary-action">Guardar membresía</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="panel-modal" id="assignMembershipModal" hidden>
+  <div class="panel-modal-content surface">
+    <div class="modal-header">
+      <h3>Asignar Membresía a Miembro</h3>
+      <button type="button" class="modal-close" id="closeAssignMembershipModal">&times;</button>
+    </div>
+    <form id="assignMembershipForm">
+      <div class="modal-body">
+        <label>Integrante de la Agencia
+          <select id="assignUserSelect" required></select>
+        </label>
+        <label>Membresía a Asignar
+          <select id="assignMembershipSelect" required></select>
+        </label>
+        <label>Duración (Días)
+          <input type="number" id="assignDurationDays" value="30" min="1" max="365" required />
+        </label>
+        <label class="toggle-row">
+          <span>Registrar venta en historial comercial</span>
+          <input type="checkbox" id="assignRecordSale" checked />
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="dark-action" id="cancelAssignMembershipModal">Cancelar</button>
+        <button type="submit" class="primary-action">Asignar membresía</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="panel-modal" id="newOperationModal" hidden>
+  <div class="panel-modal-content surface">
+    <div class="modal-header">
+      <h3>Registrar Operación Comercial</h3>
+      <button type="button" class="modal-close" id="closeOperationModal">&times;</button>
+    </div>
+    <form id="newOperationForm">
+      <div class="modal-body">
+        <label>Tipo de Operación
+          <select id="opTypeSelect" required>
+            <option value="sale_membership">Venta de Membresía</option>
+            <option value="sale_rank">Venta de Rango</option>
+            <option value="sale_mission">Venta de Misión</option>
+            <option value="transfer">Traslado de Otra Agencia</option>
+            <option value="other">Otro Concepto</option>
+          </select>
+        </label>
+        <label>Usuario de Habbo
+          <input id="opClientInput" required placeholder="Ej: HabboUser" />
+        </label>
+        <label id="opAgencyGroup" hidden>Agencia de Origen
+          <input id="opAgencyInput" placeholder="Ej: Orion, Elite, Hospital..." />
+        </label>
+        <label>Concepto / Detalle
+          <input id="opConceptInput" required placeholder="Ej: Silver, OPE · Iniciado J, etc." />
+        </label>
+        <label>Créditos Brutos (c)
+          <input type="number" id="opCreditsInput" min="0" value="30" required />
+        </label>
+        <label>Descuento Comercial (%)
+          <input type="number" id="opDiscountInput" min="0" max="100" value="0" />
+        </label>
+        <label>Estado del Pago
+          <select id="opStatusSelect">
+            <option value="completed">Pagado (Completado)</option>
+            <option value="pending">Pendiente de cobro en sala</option>
+          </select>
+        </label>
+        <label>Notas u Observaciones
+          <input id="opNotesInput" placeholder="Ej: Cobrado en sala de ventas..." />
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="dark-action" id="cancelOperationModal">Cancelar</button>
+        <button type="submit" class="primary-action">Registrar operación</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="panel-modal" id="promotionConfirmModal" hidden>
+  <div class="panel-modal-content surface">
+    <div class="modal-header">
+      <h3>Confirmar Ascenso Oficial</h3>
+      <button type="button" class="modal-close" id="closePromoConfirmModal">&times;</button>
+    </div>
+    <form id="promoConfirmForm">
+      <div class="modal-body">
+        <div class="profile-identity" style="margin-bottom:16px;">
+          <span class="habbo-avatar yellow-avatar" id="modalPromoAvatar">?</span>
+          <div>
+            <small>INTEGRANTE SELECCIONADO</small>
+            <h3 id="modalPromoUsername" style="margin:2px 0;">-</h3>
+            <span class="role supervisor" id="modalPromoRoleBadge">-</span>
+          </div>
+        </div>
+        <label>Misión Actual
+          <input id="modalPromoCurrentMission" readonly />
+        </label>
+        <label>Nueva Misión Oficial a Asignar
+          <input id="modalPromoNewMission" required />
+        </label>
+        <label>Rango Convalidado
+          <select id="modalPromoRankSelect"></select>
+        </label>
+        <label>Motivo u Observación
+          <input id="modalPromoNotes" value="Cumplimiento verificado de requisitos y mérito en base" required />
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="dark-action" id="cancelPromoConfirmModal">Cancelar</button>
+        <button type="submit" class="primary-action">Confirmar y registrar ascenso</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="panel-modal" id="newIncidentModal" hidden>
+  <div class="panel-modal-content surface">
+    <div class="modal-header">
+      <h3>Registrar Incidencia Disciplinaria</h3>
+      <button type="button" class="modal-close" id="closeIncidentModal">&times;</button>
+    </div>
+    <form id="newIncidentForm">
+      <div class="modal-body">
+        <label>Tipo de Incidencia
+          <select id="incTypeSelect" required>
+            <option value="fine">Multa (Sanción en créditos)</option>
+            <option value="demotion">Degrado de rango</option>
+            <option value="dismissal">Despido de la agencia</option>
+            <option value="clone">Control de clon / cuenta secundaria</option>
+          </select>
+        </label>
+        <label>Usuario a Sancionar o Registrar
+          <input id="incUserInput" required placeholder="Usuario de Habbo" list="incUserDatalist" />
+          <datalist id="incUserDatalist"></datalist>
+        </label>
+        <label id="incCreditsGroup">Créditos de Multa (c)
+          <input type="number" id="incCreditsInput" min="1" value="10" />
+        </label>
+        <label>Motivo de la Incidencia
+          <input id="incReasonInput" required placeholder="Ej: Falta en base, clon no permitido..." />
+        </label>
+        <label>Estado Inicial
+          <select id="incStatusSelect">
+            <option value="pending">Pendiente de cobro / cumplimiento</option>
+            <option value="applied">Aplicado inmediatamente</option>
+            <option value="allowed">Permitido (para clones autorizados)</option>
+          </select>
+        </label>
+        <label>Observaciones o Pruebas
+          <input id="incNotesInput" placeholder="Opcional..." />
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="dark-action" id="cancelIncidentModal">Cancelar</button>
+        <button type="submit" class="primary-action">Registrar incidencia</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="panel-modal" id="bannerEditModal" hidden>
+  <div class="panel-modal-content surface">
+    <div class="modal-header">
+      <h3>Editar Banner Principal</h3>
+      <button type="button" class="modal-close" id="closeBannerModal">&times;</button>
+    </div>
+    <form id="bannerEditForm">
+      <div class="modal-body">
+        <label>Título del Banner
+          <input id="editBannerTitle" required value="Agencia Shein" />
+        </label>
+        <label>Subtítulo o Eslogan
+          <input id="editBannerSubtitle" required value="Disfruta de sorteos y premios semanales." />
+        </label>
+        <label>Etiqueta Superior
+          <input id="editBannerBadge" value="BANNER ACTIVO" />
+        </label>
+        <label>Texto del Botón
+          <input id="editBannerButtonText" value="Únete hoy" />
+        </label>
+        <label>Enlace Destino
+          <input id="editBannerButtonUrl" value="registro.html" />
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="dark-action" id="cancelBannerModal">Cancelar</button>
+        <button type="submit" class="primary-action">Guardar banner</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="panel-modal" id="firmasModal" hidden>
+  <div class="panel-modal-content surface">
+    <div class="modal-header">
+      <h3>Firmas Administrativas Oficiales</h3>
+      <button type="button" class="modal-close" id="closeFirmasModal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="intro-copy">Firmas autorizadas para validar ascensos, misiones y traslados de Agencia Shein:</p>
+      <div class="requirements-box" style="margin-top:12px;">
+        <div class="req-row"><span>keekit08:</span> <b>[KEK] · Fundador & Dueño</b></div>
+        <div class="req-row"><span>Gusgus95MX:</span> <b>[GUS] · Co-Fundador & Dueño</b></div>
+        <div class="req-row"><span>Jo.C:</span> <b>[JOC] · Director General</b></div>
+        <div class="req-row"><span>MitsunoNakae087:</span> <b>[MIT] · Marketing & Operaciones</b></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="primary-action" id="okFirmasModal">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<div class="panel-modal" id="restitutionModal" hidden>
+  <div class="panel-modal-content surface">
+    <div class="modal-header">
+      <h3>Reposición de Rango o Créditos</h3>
+      <button type="button" class="modal-close" id="closeRestitutionModal">&times;</button>
+    </div>
+    <form id="restitutionForm">
+      <div class="modal-body">
+        <label>Usuario a Restituir
+          <select id="restitutionUserSelect" required></select>
+        </label>
+        <label>Tipo de Reposición
+          <select id="restitutionTypeSelect" required>
+            <option value="rank">Restitución de Rango</option>
+            <option value="credits">Acreditación de Créditos de Paga</option>
+          </select>
+        </label>
+        <label id="restitutionRankGroup">Rango Oficial a Asignar
+          <select id="restitutionRankSelect"></select>
+        </label>
+        <label id="restitutionCreditsGroup" hidden>Créditos a Otorgar (c)
+          <input type="number" id="restitutionCreditsInput" min="1" value="50" />
+        </label>
+        <label>Motivo o Justificación
+          <input id="restitutionReasonInput" required placeholder="Ej: Convalidación aprobada por dirección tras ausencia médica..." />
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="dark-action" id="cancelRestitutionModal">Cancelar</button>
+        <button type="submit" class="primary-action">Aplicar reposición</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="panel-modal" id="payrollPayoutModal" hidden>
+  <div class="panel-modal-content surface" style="max-width:820px;width:95%;">
+    <div class="modal-header">
+      <div>
+        <p class="eyebrow" style="margin:0;">Sala de Habbo · Pagadores</p>
+        <h3 style="margin:4px 0 0 0;">Reparto de Créditos de Nómina</h3>
+      </div>
+      <button type="button" class="modal-close" id="closePayrollPayoutModal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+        <span style="font-size:13px;color:#d0c8be;">Total a pagar: <strong id="payoutModalTotalCredits" style="color:var(--yellow);font-size:16px;">0 c</strong> (<span id="payoutModalTotalMembers">0</span> integrantes listos)</span>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" class="btn-copy" id="btnCopyHabboCommands">📋 Copiar comandos (:darcreditos)</button>
+          <button type="button" class="filter-button" id="btnCopyCleanPayoutList">📋 Copiar lista limpia</button>
+        </div>
+      </div>
+
+      <label>Comandos directos de Habbo Hotel (copia y pega en la consola de la sala):
+        <textarea id="payoutHabboCommandsTextarea" readonly style="width:100%;height:100px;font-family:monospace;font-size:12px;background:#181614;color:#fce19a;border:1px solid #3a3631;border-radius:6px;padding:8px;resize:vertical;"></textarea>
+      </label>
+
+      <div class="surface table-surface" style="margin-top:14px;max-height:360px;overflow-y:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>USUARIO</th>
+              <th>MODALIDAD</th>
+              <th>CRÉDITOS</th>
+              <th>ESTADO EN SALA</th>
+              <th>ACCIÓN</th>
+            </tr>
+          </thead>
+          <tbody id="payoutItemsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="dark-action" id="closePayrollPayoutModalBtn">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<div class="panel-modal" id="habboVerifyModal" hidden>
+  <div class="panel-modal-content surface" style="max-width:580px;width:95%;">
+    <div class="modal-header">
+      <div>
+        <p class="eyebrow" style="margin:0;">API Oficial Habbo España (habbo.es)</p>
+        <h3 id="verifyModalTitle" style="margin:4px 0 0 0;">Verificación en Vivo</h3>
+      </div>
+      <button type="button" class="modal-close" id="closeHabboVerifyModal">&times;</button>
+    </div>
+    <div class="modal-body" id="habboVerifyModalBody">
+      <div style="text-align:center;padding:24px;" id="verifyLoadingState">
+        <span class="live-dot" style="display:inline-block;width:12px;height:12px;background:#f5a623;border-radius:50%;margin-bottom:8px;"></span>
+        <p style="margin:0;color:#a8a096;">Consultando perfil, estado y placas en servidores de Habbo...</p>
+      </div>
+      <div id="verifyResultsCard" style="display:none;"></div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="primary-action" id="closeHabboVerifyModalBtn">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Operación guardada con éxito ✓</div>
+<script src="api-client.js"></script>
+<script src="panel.js"></script>
+<script src="habbo-avatars.js"></script>
+<script src="habbo-sounds.js"></script>
+<script src="panel-data.js"></script>
+</body>
+</html>

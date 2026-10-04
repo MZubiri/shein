@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="theme-color" content="#1a1918" />
+  <title>Pantalla en Vivo | Agencia Shein</title>
+  <link rel="stylesheet" href="panel.css" />
+  <link rel="stylesheet" href="panel-polish.css" />
+  <link rel="stylesheet" href="panel-expanded.css" />
+  <link rel="stylesheet" href="habbo-avatars.css" />
+  <style>
+    body.kiosk-body {
+      background: #141312;
+      color: #ede8e3;
+      font-family: var(--body);
+      margin: 0;
+      padding: 24px;
+      overflow-x: hidden;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    .kiosk-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1e1d1b;
+      border: 1px solid #33302c;
+      border-radius: 14px;
+      padding: 16px 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+    .kiosk-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .kiosk-brand .brand-badge {
+      width: 44px;
+      height: 44px;
+      background: var(--coral);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font: 700 24px var(--heading);
+      color: #fff;
+    }
+    .kiosk-brand h1 {
+      margin: 0;
+      font: 700 22px var(--heading);
+      letter-spacing: -0.5px;
+    }
+    .kiosk-brand p {
+      margin: 2px 0 0;
+      font-size: 13px;
+      color: #a8a096;
+    }
+    .kiosk-clock-group {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .kiosk-time-display {
+      font: 700 28px monospace;
+      color: var(--yellow);
+      letter-spacing: 1px;
+    }
+    .kiosk-date-display {
+      font-size: 13px;
+      color: #a8a096;
+      text-align: right;
+    }
+    .btn-fullscreen {
+      background: #2b2926;
+      border: 1px solid #44403b;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+    .btn-fullscreen:hover { background: #383531; }
+    .kiosk-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 1024px) {
+      .kiosk-grid { grid-template-columns: 1fr; }
+    }
+    .kiosk-card {
+      background: #1e1d1b;
+      border: 1px solid #33302c;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+      margin-bottom: 24px;
+    }
+    .kiosk-card:last-child { margin-bottom: 0; }
+    .kiosk-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #2b2825;
+      padding-bottom: 12px;
+    }
+    .kiosk-card-head h2 {
+      margin: 0;
+      font: 700 16px var(--heading);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+    }
+    .kiosk-timer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #252320;
+      border: 1px solid #3a3631;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      transition: border-color 0.2s;
+    }
+    .kiosk-timer-row:hover { border-color: var(--yellow); }
+    .kiosk-timer-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .kiosk-timer-user strong {
+      font-size: 15px;
+      color: #fff;
+    }
+    .kiosk-timer-user small {
+      display: block;
+      color: #a8a096;
+      font-size: 11px;
+    }
+    .kiosk-timer-time {
+      font: 700 18px monospace;
+      color: var(--yellow);
+      background: #1a1918;
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: 1px solid #3a3631;
+    }
+    .kiosk-att-banner {
+      background: linear-gradient(135deg, #1b3323 0%, #17241c 100%);
+      border: 1px solid #285435;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .kiosk-att-banner.closed {
+      background: #242220;
+      border-color: #383531;
+    }
+    .kiosk-promo-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #282623;
+    }
+    .kiosk-promo-item:last-child { border-bottom: none; }
+    .kiosk-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      background: #2d2a27;
+      color: #bbb3a8;
+    }
+    .kiosk-tag.active {
+      background: #1e3f28;
+      color: #5ce68b;
+    }
+    .live-pulse {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #4ade80;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+    }
+  </style>
+</head>
+<body class="kiosk-body">
+  <header class="kiosk-header">
+    <div class="kiosk-brand">
+      <div class="brand-badge">S</div>
+      <div>
+        <h1>Agencia Shein · Sala Principal</h1>
+        <p>Pantalla en Vivo · Monitoreo y Escalafón en Tiempo Real</p>
+      </div>
+    </div>
+    <div class="kiosk-clock-group">
+      <div>
+        <div class="kiosk-time-display" id="kioskClock">--:--:--</div>
+        <div class="kiosk-date-display" id="kioskDate">Cargando fecha...</div>
+      </div>
+      <button class="btn-fullscreen" id="btnToggleFullscreen">⛶ Pantalla Completa</button>
+      <a href="panel.html" class="btn-fullscreen" style="text-decoration:none;">↪ Volver al Panel</a>
+    </div>
+  </header>
+
+  <main class="kiosk-grid">
+    <!-- Columna Izquierda: Cronómetros en Sala -->
+    <section>
+      <div class="kiosk-card">
+        <div class="kiosk-card-head">
+          <h2><span class="live-pulse"></span> Personal en Sala y Cronómetros</h2>
+          <span class="kiosk-tag active" id="kioskTimersCount">0 ACTIVOS</span>
+        </div>
+        <div id="kioskTimersList">
+          <p style="color:#888;text-align:center;padding:24px;">No hay cronómetros activos en este momento.</p>
+        </div>
+      </div>
+
+      <div class="kiosk-card">
+        <div class="kiosk-card-head">
+          <h2>♕ Top Constancia en Base (Horas Acumuladas)</h2>
+          <span class="kiosk-tag">HISTÓRICO</span>
+        </div>
+        <div id="kioskTopActiveList">
+          <p style="color:#888;text-align:center;padding:16px;">Cargando top del personal...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Columna Derecha: Pase de lista y Ascensos -->
+    <section>
+      <div class="kiosk-card">
+        <div class="kiosk-card-head">
+          <h2>✓ Control Diario de Asistencia</h2>
+          <span class="kiosk-tag" id="kioskSessionBadge">CONSULTANDO</span>
+        </div>
+        <div class="kiosk-att-banner" id="kioskAttBanner">
+          <div>
+            <strong id="kioskShiftName" style="font-size:16px;color:#fff;display:block;">Pase de lista</strong>
+            <small id="kioskShiftMeta" style="color:#a8a096;">Iniciado por dirección</small>
+          </div>
+          <div style="text-align:right;">
+            <b id="kioskAttPresentCount" style="font-size:24px;color:var(--yellow);">0</b>
+            <small style="display:block;color:#a8a096;">Presentes</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="kiosk-card">
+        <div class="kiosk-card-head">
+          <h2>↑ Últimos Ascensos y Movimientos</h2>
+          <span class="kiosk-tag">EN DIRECTO</span>
+        </div>
+        <div id="kioskPromotionsList">
+          <p style="color:#888;text-align:center;padding:16px;">Cargando ascensos...</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="api-client.js"></script>
+  <script src="habbo-avatars.js"></script>
+  <script src="kiosk.js"></script>
+</body>
+</html>

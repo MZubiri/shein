@@ -173,3 +173,139 @@
   .discipline-tabs { overflow-x:auto; flex-wrap:nowrap; padding-bottom:5px; }
   .discipline-tabs button { flex:0 0 auto; }
 }
+
+/* --- ADVANCED AGENCY IMPROVEMENTS STYLING --- */
+.btn-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #2b2825;
+  border: 1px solid #45403a;
+  color: #ede8e3;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font: 600 12px var(--body);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-copy:hover {
+  background: #38342f;
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+.btn-copy.copied {
+  background: #1e3f28;
+  border-color: #5ce68b;
+  color: #5ce68b;
+}
+
+.wait-alert-box {
+  background: #2e2617;
+  border: 1px solid #7a5c1e;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #fce19a;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.wait-alert-box.ready {
+  background: #193120;
+  border-color: #2b6139;
+  color: #98e8ad;
+}
+
+.career-track {
+  background: #1a1918;
+  border: 1px solid #383531;
+  border-radius: 8px;
+  height: 12px;
+  overflow: hidden;
+  position: relative;
+}
+.career-track-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #4ade80, var(--yellow), var(--coral));
+  border-radius: 6px;
+  transition: width 0.5s ease-out;
+}
+
+.sound-toggle-btn.muted {
+  opacity: 0.5;
+  filter: grayscale(1);
+}
+
+.payout-modal-table th {
+  background: #1f1d1b;
+  color: #a8a096;
+  font-size: 11px;
+}
+.payout-modal-table td {
+  padding: 10px 12px;
+}
+.payout-status-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.payout-status-badge.paid {
+  background: #1e3f28;
+  color: #5ce68b;
+}
+.payout-status-badge.pending {
+  background: #3b2816;
+  color: #f7a24b;
+}
+
+.habbo-verify-card {
+  background: #1f1d1a;
+  border: 1px solid #38342e;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.habbo-verify-card .avatar-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #141312;
+  border: 2px solid #4a453d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.habbo-verify-card .avatar-box img {
+  transform: translateY(8px);
+}
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge-pill.verified {
+  background: #1a3822;
+  color: #5ce68b;
+  border: 1px solid #285435;
+}
+.badge-pill.mismatch {
+  background: #3d2417;
+  color: #f87171;
+  border: 1px solid #6b2f1f;
+}
+.badge-pill.neutral {
+  background: #292623;
+  color: #bbb3a8;
+  border: 1px solid #3d3935;
+}
+

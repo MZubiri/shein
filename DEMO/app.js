@@ -23,6 +23,11 @@ document.addEventListener('click', (event) => {
   if (nav.classList.contains('open') && !event.target.closest('.topbar')) setMenu(false);
 });
 
+const passwordGroup = document.querySelector('#modalPasswordGroup');
+const altAction = document.querySelector('#modalAltAction');
+const altLink = document.querySelector('#modalAltLink');
+const passwordInput = document.querySelector('#modalPassword');
+
 function openModal(mode, membership = '') {
   previousFocus = document.activeElement;
   modalMode = mode;
@@ -30,12 +35,20 @@ function openModal(mode, membership = '') {
   formError.textContent = '';
   modalInput.removeAttribute('aria-invalid');
   modalInput.value = '';
+  if (passwordInput) {
+    passwordInput.value = '';
+    passwordInput.removeAttribute('aria-invalid');
+  }
+
+  const isLogin = mode === 'login';
+  if (passwordGroup) passwordGroup.style.display = isLogin ? 'block' : 'none';
+  if (altAction) altAction.style.display = isLogin ? 'block' : 'none';
 
   const content = {
-    register: ['Únete a la comunidad.', 'Crea tu acceso y verifica tu usuario de Habbo en tres pasos sencillos.', 'Empezar registro'],
-    login: ['Bienvenido de vuelta.', 'Introduce tu usuario para entrar al panel privado de esta demo.', 'Acceder al panel'],
+    register: ['Únete a la comunidad.', 'Crea tu acceso y verifica tu usuario de Habbo en tres pasos sencillos.', 'Continuar con misión'],
+    login: ['Iniciar sesión', 'Escribe tu usuario y tu contraseña de la agencia para entrar directamente.', 'Iniciar sesión'],
     membership: [`Membresía ${membership}.`, 'Identifícate para iniciar la solicitud. La administración revisará tu petición antes de activarla.', 'Solicitar membresía']
-  }[mode];
+  }[mode] || ['Acceso a la comunidad', '', 'Continuar'];
 
   modalTitle.textContent = content[0];
   modalCopy.textContent = content[1];
@@ -54,6 +67,13 @@ function closeModal() {
 document.querySelectorAll('[data-modal]').forEach((button) => button.addEventListener('click', () => openModal(button.dataset.modal)));
 document.querySelectorAll('[data-membership]').forEach((button) => button.addEventListener('click', () => openModal('membership', button.dataset.membership)));
 document.querySelector('.modal-close').addEventListener('click', closeModal);
+altLink?.addEventListener('click', (event) => {
+  event.preventDefault();
+  const username = modalInput.value.trim();
+  const params = new URLSearchParams({ mode: 'login' });
+  if (username) params.set('user', username);
+  window.location.href = `registro.html?${params}`;
+});
 modalBackdrop.addEventListener('click', (event) => {
   if (event.target === modalBackdrop) closeModal();
 });
@@ -72,7 +92,7 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
-demoForm.addEventListener('submit', (event) => {
+demoForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const username = modalInput.value.trim();
   if (username.length < 2) {
@@ -81,9 +101,38 @@ demoForm.addEventListener('submit', (event) => {
     modalInput.focus();
     return;
   }
+
+  if (modalMode === 'login') {
+    const password = passwordInput?.value || '';
+    if (!password) {
+      const params = new URLSearchParams({ user: username, mode: 'login' });
+      window.location.href = `registro.html?${params}`;
+      return;
+    }
+    modalSubmit.setAttribute('disabled', 'true');
+    modalSubmit.textContent = 'Iniciando sesión…';
+    try {
+      await window.SheinApi.request('/auth/login', {
+        method: 'POST',
+        body: { username, password }
+      });
+      window.location.href = 'panel.html';
+      return;
+    } catch (error) {
+      formError.textContent = error.message;
+      if (passwordInput) {
+        passwordInput.setAttribute('aria-invalid', 'true');
+        passwordInput.focus();
+      }
+    } finally {
+      modalSubmit.removeAttribute('disabled');
+      modalSubmit.innerHTML = 'Iniciar sesión <span aria-hidden="true">↗</span>';
+    }
+    return;
+  }
+
   const params = new URLSearchParams({ user: username });
   if (selectedMembership) params.set('membership', selectedMembership);
-  if (modalMode === 'login') params.set('mode', 'login');
   window.location.href = `registro.html?${params}`;
 });
 modalInput.addEventListener('input', () => {

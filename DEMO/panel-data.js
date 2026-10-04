@@ -2996,13 +2996,6 @@
     applyPermissions(session.allowedViews);
     setupSoundToggle();
     setupHabboVerifyModalHandlers();
-    if (session.demoMode) {
-      modeBanner('demo', 'Modo demostración · acceso y operaciones simuladas con datos de muestra.');
-      document.querySelector('#logoutButton')?.addEventListener('click', async () => {
-        try { await api.request('/auth/logout', { method:'POST' }); } finally { location.replace('index.html'); }
-      });
-      return;
-    }
 
     await Promise.all([
       loadMembers(),

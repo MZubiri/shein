@@ -31,12 +31,11 @@ test('el registro nunca contiene campos de contraseña Habbo', async () => {
   assert.match(script, /auth\/verify/);
 });
 
-test('el despliegue está configurado como demo con acceso simulado', async () => {
+test('el despliegue está configurado para modo real con MySQL', async () => {
   const compose = await readFile(new URL('../docker-compose.yml', import.meta.url), 'utf8');
   const server = await readFile(new URL('../server/index.js', import.meta.url), 'utf8');
-  assert.match(compose, /DEMO_MODE: "true"/);
-  assert.doesNotMatch(compose, /mysql:/);
-  assert.match(server, /simulated: demoMode/);
-  assert.match(server, /demoMode \|\| owner \? 'owner'/);
+  assert.match(compose, /DEMO_MODE: "false"/);
+  assert.match(compose, /mysql:/);
+  assert.match(compose, /mysql_data:\/var\/lib\/mysql/);
   assert.match(server, /if \(!demoMode\)/);
 });

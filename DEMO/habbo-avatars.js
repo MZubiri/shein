@@ -55,8 +55,8 @@
 
   function hydrateExistingAvatars(root) {
     root.querySelectorAll?.('.habbo-avatar:not(.has-photo), .user-avatar:not(.has-photo), .header-user:not(.has-photo), .account-avatar:not(.has-photo)').forEach((avatar) => {
-      let username = avatar.classList.contains('header-user') ? 'keekit08' : findUser(avatar.parentElement?.textContent || '');
-      if (!username && avatar.classList.contains('user-avatar')) username = 'keekit08';
+      let username = avatar.classList.contains('header-user') ? 'Gusgus95MX' : findUser(avatar.parentElement?.textContent || '');
+      if (!username && avatar.classList.contains('user-avatar')) username = 'Gusgus95MX';
       if (!username) return;
       avatar.textContent = '';
       avatar.append(createPhoto(username, ''));

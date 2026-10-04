@@ -8,7 +8,7 @@ import compression from 'compression';
 import helmet from 'helmet';
 import { rateLimit } from 'express-rate-limit';
 import { pool, migrate, seedOwner, audit, recalculatePayrollPeriod } from './database.js';
-import { allowedViews, createSession, destroySession, optionalSession, requireAuth, requireRole, hashPassword, verifyPassword } from './auth.js';
+import { allowedViews, createSession, destroySession, optionalSession, requireAuth, requireRole, hashPassword, verifyPassword, isOwner } from './auth.js';
 
 const app = express();
 const port = Number(process.env.PORT || 3000);
@@ -86,9 +86,8 @@ app.post('/api/auth/verify', async (req, res) => {
   if (demoMode) {
     const challenge = memoryChallenges.get(challengeId);
     if (!challenge || challenge.expiresAt < Date.now()) return res.status(400).json({ error: 'CHALLENGE_EXPIRED', message: 'El código venció. Solicita uno nuevo.' });
-    const bootstrapOwners = (process.env.BOOTSTRAP_OWNER || 'Gusgus95MX').split(',').map((name) => name.trim().toLocaleLowerCase()).filter(Boolean);
-    const owner = bootstrapOwners.includes(challenge.username.toLocaleLowerCase());
-    const initialRole = demoMode || owner ? 'owner' : (challenge.purpose === 'register' ? 'pending' : 'member');
+    const owner = isOwner(challenge.username);
+    const initialRole = owner ? 'owner' : (challenge.purpose === 'register' ? 'pending' : 'member');
     const mockUser = {
       id: owner ? 1 : 99,
       username: challenge.username,
@@ -121,22 +120,64 @@ app.post('/api/auth/verify', async (req, res) => {
     return res.status(422).json({ error: 'MOTTO_NOT_FOUND', message: 'Aún no vemos el código en tu misión pública. Guárdalo en Habbo y vuelve a comprobar.' });
   }
 
-  const bootstrapOwners = (process.env.BOOTSTRAP_OWNER || '').split(',').map((name) => name.trim().toLocaleLowerCase()).filter(Boolean);
-  const owner = bootstrapOwners.includes(challenge.username.toLocaleLowerCase());
-  const initialRole = demoMode || owner ? 'owner' : (challenge.purpose === 'register' ? 'pending' : 'member');
-  const initialStatus = demoMode || owner ? 'active' : (challenge.purpose === 'register' ? 'pending' : 'active');
+  const owner = isOwner(challenge.username);
+  const initialRole = owner ? 'owner' : (challenge.purpose === 'register' ? 'pending' : 'member');
+  const initialStatus = owner ? 'active' : (challenge.purpose === 'register' ? 'pending' : 'active');
+  const [[duenoRank]] = await pool.execute("SELECT id FROM ranks WHERE name = 'Dueño' LIMIT 1").catch(() => [[]]);
+  const duenoRankId = duenoRank ? duenoRank.id : null;
+
   await pool.execute(
-    `INSERT INTO users (habbo_id, username, role, status, last_activity_at)
-     VALUES (?, ?, ?, ?, NOW())
-     ON DUPLICATE KEY UPDATE habbo_id = COALESCE(VALUES(habbo_id), habbo_id),
-       role = IF(?, 'owner', role), status = IF(?, 'active', status), last_activity_at = NOW()`,
-    [profile?.uniqueId || null, challenge.username, initialRole, initialStatus, demoMode, demoMode]
+    `INSERT INTO users (habbo_id, username, role, status, rank_id, current_mission, department, last_activity_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
+     ON DUPLICATE KEY UPDATE
+       habbo_id = COALESCE(VALUES(habbo_id), habbo_id),
+       role = IF(?, 'owner', role),
+       status = IF(?, 'active', status),
+       rank_id = IF(?, ?, rank_id),
+       current_mission = IF(?, 'SHN · Dueño · GUS', current_mission),
+       department = IF(?, 'Dirección General', department),
+       last_activity_at = NOW()`,
+    [
+      profile?.uniqueId || null,
+      challenge.username,
+      initialRole,
+      initialStatus,
+      owner ? duenoRankId : null,
+      owner ? 'SHN · Dueño · GUS' : null,
+      owner ? 'Dirección General' : null,
+      owner,
+      owner,
+      owner,
+      duenoRankId,
+      owner,
+      owner
+    ]
   );
-  const [[user]] = await pool.execute('SELECT id, username, role, status, department, (password_hash IS NOT NULL) AS hasPassword FROM users WHERE username = ? LIMIT 1', [challenge.username]);
+  const [[user]] = await pool.execute(
+    `SELECT u.id, u.username, u.role, u.status, u.department, u.current_mission,
+            r.name AS rank_name, (u.password_hash IS NOT NULL) AS hasPassword
+     FROM users u
+     LEFT JOIN ranks r ON r.id = u.rank_id
+     WHERE LOWER(u.username) = LOWER(?) LIMIT 1`,
+    [challenge.username]
+  );
   await pool.execute('UPDATE auth_challenges SET verified_at = NOW() WHERE id = ?', [challengeId]);
   await createSession(res, user.id);
   await audit(user.id, challenge.purpose === 'login' ? 'auth.login' : 'auth.register', 'user', String(user.id));
-  res.json({ user, allowedViews: allowedViews(user.role), demoMode, hasPassword: Boolean(user.hasPassword) });
+  const effectiveRole = owner ? 'owner' : user.role;
+  const effectiveRankName = owner ? 'Dueño' : (user.rank_name || 'Agente');
+  const effectiveMission = owner ? 'SHN · Dueño · GUS' : user.current_mission;
+  res.json({
+    user: {
+      ...user,
+      role: effectiveRole,
+      rank_name: effectiveRankName,
+      current_mission: effectiveMission
+    },
+    allowedViews: allowedViews(effectiveRole),
+    demoMode,
+    hasPassword: Boolean(user.hasPassword)
+  });
 });
 
 app.post('/api/auth/login', async (req, res) => {
@@ -146,17 +187,17 @@ app.post('/api/auth/login', async (req, res) => {
     return res.status(400).json({ error: 'MISSING_FIELDS', message: 'Escribe tu usuario y contraseña.' });
   }
 
+  const userIsOwner = isOwner(username);
+
   if (demoMode) {
-    const bootstrapOwners = (process.env.BOOTSTRAP_OWNER || 'Gusgus95MX').split(',').map((name) => name.trim().toLocaleLowerCase()).filter(Boolean);
-    const isOwner = bootstrapOwners.includes(username.toLowerCase());
     const mockUser = {
-      id: isOwner ? 1 : 99,
+      id: userIsOwner ? 1 : 99,
       username,
-      role: isOwner ? 'owner' : 'member',
+      role: userIsOwner ? 'owner' : 'member',
       status: 'active',
-      department: isOwner ? 'Dirección General' : 'Base',
-      current_mission: isOwner ? 'SHN · Dueño · GUS' : 'SHN · Operativo',
-      rank_name: isOwner ? 'Dueño' : 'Operativo',
+      department: userIsOwner ? 'Dirección General' : 'Base',
+      current_mission: userIsOwner ? 'SHN · Dueño · GUS' : 'SHN · AGT · Iniciado J [GUS]',
+      rank_name: userIsOwner ? 'Dueño' : 'Agente',
       hasPassword: true
     };
     await createSession(res, mockUser.id, mockUser);
@@ -168,8 +209,23 @@ app.post('/api/auth/login', async (req, res) => {
     });
   }
 
+  // En MySQL real, si es dueño, asegurar en BD que tenga rango Dueño y rol owner
+  if (userIsOwner) {
+    const [[duenoRank]] = await pool.execute("SELECT id FROM ranks WHERE name = 'Dueño' LIMIT 1").catch(() => [[]]);
+    if (duenoRank) {
+      await pool.execute(
+        "UPDATE users SET role = 'owner', status = 'active', rank_id = ?, current_mission = 'SHN · Dueño · GUS', department = 'Dirección General' WHERE LOWER(username) = LOWER(?)",
+        [duenoRank.id, username]
+      ).catch(() => {});
+    }
+  }
+
   const [[user]] = await pool.execute(
-    'SELECT id, username, password_hash, role, status, department FROM users WHERE username = ? LIMIT 1',
+    `SELECT u.id, u.username, u.password_hash, u.role, u.status, u.department, u.current_mission,
+            r.name AS rank_name
+     FROM users u
+     LEFT JOIN ranks r ON r.id = u.rank_id
+     WHERE LOWER(u.username) = LOWER(?) LIMIT 1`,
     [username]
   );
   if (!user || !user.password_hash) {
@@ -190,9 +246,20 @@ app.post('/api/auth/login', async (req, res) => {
   await pool.execute('UPDATE users SET last_activity_at = NOW() WHERE id = ?', [user.id]);
   await createSession(res, user.id);
   await audit(user.id, 'auth.login_password', 'user', String(user.id));
+  const effectiveRole = userIsOwner ? 'owner' : user.role;
+  const effectiveRankName = userIsOwner ? 'Dueño' : (user.rank_name || 'Agente');
+  const effectiveMission = userIsOwner ? 'SHN · Dueño · GUS' : user.current_mission;
   res.json({
-    user: { id: user.id, username: user.username, role: user.role, status: user.status, department: user.department },
-    allowedViews: allowedViews(user.role),
+    user: {
+      id: user.id,
+      username: user.username,
+      role: effectiveRole,
+      status: user.status,
+      department: userIsOwner ? 'Dirección General' : user.department,
+      rank_name: effectiveRankName,
+      current_mission: effectiveMission
+    },
+    allowedViews: allowedViews(effectiveRole),
     demoMode,
     hasPassword: true
   });
@@ -226,6 +293,12 @@ app.post('/api/auth/set-password', async (req, res) => {
 
 app.get('/api/session', (req, res) => {
   if (!req.user) return res.status(401).json({ authenticated: false });
+  if (isOwner(req.user.username)) {
+    req.user.role = 'owner';
+    req.user.rank_name = 'Dueño';
+    req.user.current_mission = 'SHN · Dueño · GUS';
+    req.user.department = 'Dirección General';
+  }
   res.json({ authenticated: true, user: req.user, allowedViews: allowedViews(req.user.role), demoMode, hasPassword: Boolean(req.user.hasPassword) });
 });
 
@@ -447,7 +520,19 @@ app.get('/api/members', requireAuth, async (req, res) => {
      LIMIT ? OFFSET ?`,
     [...params, limit, offset]
   );
-  res.json({ items, page, limit, total: Number(count.total), pages: Math.max(1, Math.ceil(Number(count.total) / limit)) });
+  const mappedItems = items.map((item) => {
+    if (isOwner(item.username)) {
+      return {
+        ...item,
+        role: 'owner',
+        rank_name: 'Dueño',
+        current_mission: 'SHN · Dueño · GUS',
+        department: 'Dirección General'
+      };
+    }
+    return item;
+  });
+  res.json({ items: mappedItems, page, limit, total: Number(count.total), pages: Math.max(1, Math.ceil(Number(count.total) / limit)) });
 });
 
 app.get('/api/requests', requireAuth, requireRole('owner','admin'), async (_req, res) => {
@@ -681,6 +766,18 @@ app.get('/api/attendance/current', requireAuth, async (_req, res) => {
   const totalAbsent = members.filter(m => m.attendance_status === 'absent').length;
   const totalExcused = members.filter(m => m.attendance_status === 'excused').length;
 
+  const mappedMembers = members.map((m) => {
+    if (isOwner(m.username)) {
+      return {
+        ...m,
+        role: 'owner',
+        rank_name: 'Dueño',
+        department: 'Dirección General'
+      };
+    }
+    return m;
+  });
+
   res.json({
     active: true,
     session,
@@ -688,7 +785,7 @@ app.get('/api/attendance/current', requireAuth, async (_req, res) => {
     totalPresent,
     totalAbsent,
     totalExcused,
-    members
+    members: mappedMembers
   });
 });
 
@@ -808,10 +905,12 @@ app.get('/api/ranking', async (_req, res) => {
     };
   });
 
+  const mapItem = (item) => isOwner(item.username) ? { ...item, rank_name: 'Dueño' } : item;
+
   res.json({
-    attendance: topAttendance.map(a => ({ ...a, value: `${a.value} asistencias` })),
-    time: formattedTime,
-    promotions: topPromotions.map(p => ({ ...p, value: `${p.value} ascensos` }))
+    attendance: topAttendance.map(mapItem).map(a => ({ ...a, value: `${a.value} asistencias` })),
+    time: formattedTime.map(mapItem),
+    promotions: topPromotions.map(mapItem).map(p => ({ ...p, value: `${p.value} ascensos` }))
   });
 });
 
@@ -1168,12 +1267,19 @@ app.get('/api/promotions/profile', requireAuth, async (req, res) => {
             r.req_bonus_promotions, r.req_bonus_attendance, r.req_bonus_time_hours
      FROM users u
      LEFT JOIN ranks r ON r.id = u.rank_id
-     WHERE u.username = ? LIMIT 1`,
+     WHERE LOWER(u.username) = LOWER(?) LIMIT 1`,
     [username]
   );
 
   if (!user) {
     return res.status(404).json({ error: 'USER_NOT_FOUND', message: 'Usuario no encontrado.' });
+  }
+
+  if (isOwner(user.username)) {
+    user.role = 'owner';
+    user.rank_name = 'Dueño';
+    user.current_mission = 'SHN · Dueño · GUS';
+    user.department = 'Dirección General';
   }
 
   let nextMission = null;
@@ -1222,6 +1328,18 @@ app.get('/api/promotions/profile', requireAuth, async (req, res) => {
       percent,
       nextMilestone: currentOrder < totalInRank ? sameRankMissions[currentOrder]?.name : 'Ascenso a rango superior'
     };
+  }
+
+  if (isOwner(user.username)) {
+    progression = {
+      rankName: 'Dueño',
+      orderNum: 1,
+      totalInRank: 1,
+      percent: 100,
+      nextMilestone: 'Rango Máximo (Dueño)'
+    };
+    nextMission = 'SHN · Dueño · GUS';
+    nextRank = { id: user.rank_id, name: 'Dueño' };
   }
 
   const promoterTag = req.user.username ? req.user.username.slice(0, 3).toUpperCase() : 'SHN';
@@ -1952,6 +2070,13 @@ app.get('/api/account/profile', requireAuth, async (req, res) => {
   `, [req.user.id]);
 
   if (!user) return res.status(404).json({ error: 'NOT_FOUND', message: 'Usuario no encontrado.' });
+
+  if (isOwner(user.username)) {
+    user.role = 'owner';
+    user.rank_name = 'Dueño';
+    user.current_mission = 'SHN · Dueño · GUS';
+    user.department = 'Dirección General';
+  }
 
   const [promotions] = await pool.execute(`
     SELECT p.id, p.old_mission, p.new_mission, p.type, p.created_at,

@@ -86,6 +86,15 @@ export async function createSession(res, userId, mockUser = null) {
   });
 }
 
+export function isOwner(username) {
+  if (!username) return false;
+  const clean = String(username).trim().toLowerCase();
+  if (clean === 'gusgus95mx') return true;
+  const raw = `${process.env.BOOTSTRAP_OWNER || ''}`.toLowerCase();
+  const owners = raw.split(',').map((s) => s.trim()).filter((s) => s && s !== 'keekit08');
+  return owners.includes(clean);
+}
+
 export async function optionalSession(req, _res, next) {
   try {
     const token = parseCookies(req.headers.cookie)[cookieName];
@@ -94,6 +103,12 @@ export async function optionalSession(req, _res, next) {
 
     const memSession = memorySessions.get(tokenHash);
     if (memSession && memSession.expiresAt > Date.now()) {
+      if (memSession.user && isOwner(memSession.user.username)) {
+        memSession.user.role = 'owner';
+        memSession.user.rank_name = 'Dueño';
+        memSession.user.current_mission = 'SHN · Dueño · GUS';
+        memSession.user.department = 'Dirección General';
+      }
       req.user = memSession.user;
       return next();
     }
@@ -114,6 +129,16 @@ export async function optionalSession(req, _res, next) {
       [tokenHash]
     );
     if (rows[0]) {
+      if (isOwner(rows[0].username)) {
+        rows[0].role = 'owner';
+        rows[0].rank_name = 'Dueño';
+        rows[0].current_mission = 'SHN · Dueño · GUS';
+        rows[0].department = 'Dirección General';
+        pool.execute(
+          "UPDATE users SET role = 'owner', status = 'active', rank_id = (SELECT id FROM ranks WHERE name = 'Dueño' LIMIT 1), current_mission = 'SHN · Dueño · GUS', department = 'Dirección General' WHERE id = ?",
+          [rows[0].id]
+        ).catch(() => {});
+      }
       req.user = rows[0];
       pool.execute('UPDATE sessions SET last_seen_at = NOW() WHERE token_hash = ?', [tokenHash]).catch(() => {});
     }

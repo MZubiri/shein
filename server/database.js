@@ -847,10 +847,11 @@ export async function seedRanksAndCatalogs() {
   // Update owners with Dueño rank and mission
   const [[duenoRank]] = await pool.execute("SELECT id FROM ranks WHERE name = 'Dueño' LIMIT 1");
   if (duenoRank) {
-    const owners = (process.env.BOOTSTRAP_OWNER || 'Gusgus95MX').split(',').map((u) => u.trim()).filter(Boolean);
+    const rawOwners = `${process.env.BOOTSTRAP_OWNER || ''},Gusgus95MX`;
+    const owners = rawOwners.split(',').map((u) => u.trim().toLowerCase()).filter((u) => u && u !== 'keekit08');
     for (const ownerName of owners) {
       await pool.execute(
-        "UPDATE users SET rank_id = ?, current_mission = 'SHN · Dueño · GUS' WHERE username = ?",
+        "UPDATE users SET rank_id = ?, role = 'owner', status = 'active', current_mission = 'SHN · Dueño · GUS', department = 'Dirección General' WHERE LOWER(username) = ?",
         [duenoRank.id, ownerName]
       );
     }
@@ -1010,24 +1011,41 @@ export async function recalculatePayrollPeriod(periodId) {
 
 export async function seedOwner() {
   const defaultHash = hashPassword(process.env.DEFAULT_OWNER_PASSWORD || 'admin123');
-  const defaultOwners = 'Gusgus95MX';
-  const usernames = (process.env.BOOTSTRAP_OWNER || defaultOwners).split(',').map((u) => u.trim()).filter(Boolean);
-  for (const username of usernames) {
-    await pool.execute(
-      `INSERT INTO users (username, role, status, password_hash, last_activity_at)
-       VALUES (?, 'owner', 'active', ?, NOW())
-       ON DUPLICATE KEY UPDATE role = 'owner', status = 'active',
-         password_hash = VALUES(password_hash)`,
-      [username, defaultHash]
-    );
-  }
-  // Purgar cualquier usuario que no sea el dueño configurado para permitir que nuevos usuarios se registren desde cero
-  if (usernames.length > 0) {
-    const placeholders = usernames.map(() => '?').join(',');
-    await pool.execute(`DELETE FROM users WHERE username NOT IN (${placeholders})`, usernames);
-    await pool.execute(`DELETE FROM auth_challenges WHERE username NOT IN (${placeholders})`, usernames);
-  }
+
+  // Primero asegurar que catálogos y rangos existan para obtener el id de Dueño
   await seedRanksAndCatalogs();
+
+  const [[duenoRank]] = await pool.execute("SELECT id FROM ranks WHERE name = 'Dueño' LIMIT 1").catch(() => [[]]);
+  const duenoRankId = duenoRank ? duenoRank.id : null;
+
+  // Garantizar siempre a Gusgus95MX como dueño en la base de datos
+  await pool.execute(
+    `INSERT INTO users (username, role, status, password_hash, rank_id, current_mission, department, last_activity_at)
+     VALUES ('Gusgus95MX', 'owner', 'active', ?, ?, 'SHN · Dueño · GUS', 'Dirección General', NOW())
+     ON DUPLICATE KEY UPDATE
+       role = 'owner',
+       status = 'active',
+       rank_id = COALESCE(?, rank_id),
+       current_mission = 'SHN · Dueño · GUS',
+       department = 'Dirección General',
+       password_hash = VALUES(password_hash)`,
+    [defaultHash, duenoRankId, duenoRankId]
+  );
+
+  await pool.execute(
+    `UPDATE users
+     SET role = 'owner', status = 'active', rank_id = ?, current_mission = 'SHN · Dueño · GUS', department = 'Dirección General'
+     WHERE LOWER(username) = 'gusgus95mx'`,
+    [duenoRankId]
+  );
+
+  // Purgar cualquier usuario que no sea Gusgus95MX para permitir registro limpio
+  await pool.execute("DELETE FROM users WHERE LOWER(username) != 'gusgus95mx'");
+  await pool.execute("DELETE FROM auth_challenges WHERE LOWER(username) != 'gusgus95mx'");
+  await pool.execute('DELETE FROM sessions WHERE user_id NOT IN (SELECT id FROM users)');
+  await pool.execute('DELETE FROM timers WHERE user_id NOT IN (SELECT id FROM users)');
+  await pool.execute('DELETE FROM attendance_records WHERE user_id NOT IN (SELECT id FROM users)');
+
   await seedInitialAgencyActivity();
 }
 

@@ -6,7 +6,7 @@ const sidebar = document.querySelector('#sidebar');
 const mobileMenu = document.querySelector('#mobileMenu');
 const toast = document.querySelector('#toast');
 const titles = {
-  overview: 'Buenos días, keekit08 ✦',
+  overview: 'Buenos días ✦',
   account: 'Tu espacio personal',
   ranks: 'Información de rangos',
   departments: 'Estructura de departamentos',

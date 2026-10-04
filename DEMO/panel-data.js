@@ -88,6 +88,11 @@
   }
 
   function applyIdentity(user) {
+    if (user && user.username && user.username.toLowerCase() === 'gusgus95mx') {
+      user.role = 'owner';
+      user.rank_name = 'Dueño';
+      user.current_mission = 'SHN · Dueño · GUS';
+    }
     document.querySelectorAll('.mini-user strong').forEach((node) => { node.textContent = user.username; });
     document.querySelectorAll('.mini-user small').forEach((node) => { node.textContent = user.rank_name || roleLabels[user.role] || user.role; });
     const heading = document.querySelector('#viewTitle');
@@ -2685,6 +2690,12 @@
       const u = data.user;
       if (!u) return;
 
+      if (u.username && u.username.toLowerCase() === 'gusgus95mx') {
+        u.role = 'owner';
+        u.rank_name = 'Dueño';
+        u.current_mission = 'SHN · Dueño · GUS';
+      }
+
       window.HabboAvatars?.register(u.username);
 
       const avatar = document.querySelector('#accHeroAvatar');
@@ -2992,6 +3003,12 @@
       return;
     }
     modeBanner('live', 'Conectado · los cambios se guardan en MySQL.');
+    if (session.user && session.user.username && session.user.username.toLowerCase() === 'gusgus95mx') {
+      session.user.role = 'owner';
+      session.user.rank_name = 'Dueño';
+      session.user.current_mission = 'SHN · Dueño · GUS';
+      session.allowedViews = ['*'];
+    }
     applyIdentity(session.user);
     applyPermissions(session.allowedViews);
     setupSoundToggle();

@@ -847,294 +847,18 @@ export async function seedRanksAndCatalogs() {
   // Update owners with Dueño rank and mission
   const [[duenoRank]] = await pool.execute("SELECT id FROM ranks WHERE name = 'Dueño' LIMIT 1");
   if (duenoRank) {
-    const owners = (process.env.BOOTSTRAP_OWNER || '').split(',').map((u) => u.trim()).filter(Boolean);
+    const owners = (process.env.BOOTSTRAP_OWNER || 'Gusgus95MX').split(',').map((u) => u.trim()).filter(Boolean);
     for (const ownerName of owners) {
       await pool.execute(
-        "UPDATE users SET rank_id = ?, current_mission = 'SHN · Dueño · KEK · GUS' WHERE username = ? AND (rank_id IS NULL OR current_mission IS NULL)",
+        "UPDATE users SET rank_id = ?, current_mission = 'SHN · Dueño · GUS' WHERE username = ?",
         [duenoRank.id, ownerName]
       );
     }
   }
 }
-
 export async function seedInitialAgencyActivity() {
-  const [[existingUsersCount]] = await pool.query('SELECT COUNT(*) AS total FROM users');
-  if (existingUsersCount.total <= 2) {
-    const demoMembers = [
-      { username: 'Jo.C', role: 'admin', rank: 'Administrador', dept: 'Gestión de Tiempos', mission: 'SHN · ADM · Jefe A [KEK/GUS]', att: 18, time: 36000, promo: 4 },
-      { username: 'MitsunoNakae087', role: 'owner', rank: 'Dueño', dept: 'Marketing', mission: 'SHN · Dueño · KEK · GUS', att: 25, time: 45000, promo: 6 },
-      { username: 'RosalBoy', role: 'admin', rank: 'Founder', dept: 'Juegos y Eventos', mission: 'SHN · FOU · Coordinador [KEK]', att: 22, time: 32000, promo: 5 },
-      { username: 'R3belde', role: 'supervisor', rank: 'Supervisor', dept: 'Recursos Humanos', mission: 'SHN · SUP · Ayudante F [KEK]', att: 32, time: 17400, promo: 2 },
-      { username: 'melany1999', role: 'member', rank: 'Operativo', dept: 'Operaciones', mission: 'SHN · OPE · Iniciado J [GUS]', att: 44, time: 124020, promo: 4 },
-      { username: 'Ailin:0', role: 'member', rank: 'Operativo', dept: 'Operaciones', mission: 'SHN · OPE · Intermedio D [KEK]', att: 38, time: 183060, promo: 3 },
-      { username: 'SaulSoprano', role: 'member', rank: 'Operativo', dept: 'Seguridad y Base', mission: 'SHN · OPE · Experto B [GUS]', att: 29, time: 450060, promo: 5 },
-      { username: 'Berna.', role: 'supervisor', rank: 'Director', dept: 'Supervisión General', mission: 'SHN · DIR · Iniciado J [KEK]', att: 35, time: 365220, promo: 4 },
-      { username: '4karen', role: 'supervisor', rank: 'Supervisor', dept: 'Supervisión General', mission: 'SHN · SUP · Novato H [KEK]', att: 51, time: 182220, promo: 3 },
-      { username: 'Santig.f', role: 'supervisor', rank: 'Supervisor', dept: 'Supervisión General', mission: 'SHN · SUP · Junior E [KEK]', att: 46, time: 165660, promo: 2 },
-      { username: 'elmodeloaseguir', role: 'supervisor', rank: 'Supervisor', dept: 'Supervisión General', mission: 'SHN · SUP · Iniciado J [KEK]', att: 41, time: 148380, promo: 1 },
-      { username: 'pgg-Pedro', role: 'member', rank: 'Director', dept: 'Operaciones', mission: 'SHN · DIR · Ayudante F [KEK]', att: 20, time: 72000, promo: 2 },
-      { username: 'AxelHabbo', role: 'member', rank: 'Agente', dept: 'Base', mission: 'SHN · AGT · Iniciado J [KEK]', att: 5, time: 18000, promo: 0 }
-    ];
-
-    for (const m of demoMembers) {
-      const [[rankRow]] = await pool.execute('SELECT id FROM ranks WHERE name = ? LIMIT 1', [m.rank]);
-      await pool.execute(
-        `INSERT INTO users (username, role, status, department, rank_id, current_mission,
-                            accumulated_attendances, accumulated_time_seconds, accumulated_promotions, last_activity_at)
-         VALUES (?, ?, 'active', ?, ?, ?, ?, ?, ?, NOW())
-         ON DUPLICATE KEY UPDATE rank_id = COALESCE(rank_id, VALUES(rank_id)),
-           current_mission = COALESCE(current_mission, VALUES(current_mission)),
-           department = COALESCE(department, VALUES(department)),
-           accumulated_attendances = VALUES(accumulated_attendances),
-           accumulated_time_seconds = VALUES(accumulated_time_seconds),
-           accumulated_promotions = VALUES(accumulated_promotions)`,
-        [m.username, m.role, m.dept, rankRow?.id || null, m.mission, m.att, m.time, m.promo]
-      );
-    }
-  }
-
-  // Seed active timers if empty
-  const [[timerCount]] = await pool.query('SELECT COUNT(*) AS total FROM timers WHERE status IN ("active", "paused")');
-  if (timerCount.total === 0) {
-    const [[starter]] = await pool.query('SELECT id FROM users WHERE username = "Gusgus95MX" LIMIT 1');
-    const [[userMelany]] = await pool.query('SELECT id FROM users WHERE username = "melany1999" LIMIT 1');
-    const starterId = starter ? starter.id : 1;
-
-    if (starter) {
-      // Live timer: 7m 39s ago
-      await pool.execute(
-        `INSERT INTO timers (user_id, started_by, location, status, started_at, accumulated_seconds, pause_count)
-         VALUES (?, ?, 'Base', 'active', DATE_SUB(NOW(), INTERVAL 459 SECOND), 459, 0)`,
-        [starterId, starterId]
-      );
-    }
-
-    if (userMelany) {
-      // Paused timer: 4m 55s (295s), 1 pause
-      await pool.execute(
-        `INSERT INTO timers (user_id, started_by, location, status, started_at, paused_at, accumulated_seconds, pause_count)
-         VALUES (?, ?, 'Entrenamiento', 'paused', DATE_SUB(NOW(), INTERVAL 600 SECOND), NOW(), 295, 1)`,
-        [userMelany.id, starterId]
-      );
-    }
-  }
-
-  // Seed active attendance session if empty
-  const [[openSessionCount]] = await pool.query('SELECT COUNT(*) AS total FROM attendance_sessions WHERE status = "open"');
-  if (openSessionCount.total === 0) {
-    const [[starter]] = await pool.query('SELECT id FROM users WHERE username = "Jo.C" LIMIT 1');
-    const [[owner]] = await pool.query('SELECT id FROM users WHERE username = "keekit08" LIMIT 1');
-    const starterId = starter ? starter.id : 1;
-
-    const [sessionResult] = await pool.execute(
-      `INSERT INTO attendance_sessions (created_by, shift_name, status, opened_at, notes)
-       VALUES (?, 'Turno noche · 22:00', 'open', DATE_SUB(NOW(), INTERVAL 18 MINUTE), 'Pase diario España')`,
-      [starterId]
-    );
-
-    const sessionId = sessionResult.insertId;
-    if (sessionId) {
-      const [members] = await pool.query('SELECT id FROM users WHERE status = "active" LIMIT 10');
-      for (let i = 0; i < members.length; i++) {
-        // Mark first 8 present, others absent
-        const status = i < 8 ? 'present' : 'absent';
-        await pool.execute(
-          `INSERT INTO attendance_records (session_id, user_id, status, marked_at, marked_by)
-           VALUES (?, ?, ?, NOW(), ?)`,
-          [sessionId, members[i].id, status, starterId]
-        );
-      }
-    }
-  }
-
-  // Assign memberships to demo members
-  const [[silverM]] = await pool.query('SELECT id FROM memberships_catalog WHERE name = "SILVER" LIMIT 1');
-  const [[reducM]] = await pool.query('SELECT id FROM memberships_catalog WHERE name = "REDUCCIÓN" LIMIT 1');
-  const [[goldM]] = await pool.query('SELECT id FROM memberships_catalog WHERE name = "GOLD" LIMIT 1');
-  const [[guardaM]] = await pool.query('SELECT id FROM memberships_catalog WHERE name = "GUARDA PAGA" LIMIT 1');
-
-  if (silverM) await pool.execute('UPDATE users SET membership_id = ?, membership_expires_at = DATE_ADD(NOW(), INTERVAL 28 DAY) WHERE username = "Berna."', [silverM.id]);
-  if (reducM) await pool.execute('UPDATE users SET membership_id = ?, membership_expires_at = DATE_ADD(NOW(), INTERVAL 25 DAY) WHERE username = "melany1999"', [reducM.id]);
-  if (goldM) await pool.execute('UPDATE users SET membership_id = ?, membership_expires_at = DATE_ADD(NOW(), INTERVAL 22 DAY) WHERE username = "Ailin:0"', [goldM.id]);
-  if (guardaM) await pool.execute('UPDATE users SET membership_id = ?, membership_expires_at = DATE_ADD(NOW(), INTERVAL 14 DAY) WHERE username = "4karen"', [guardaM.id]);
-
-  // Seed commercial operations if empty
-  const [[opsCount]] = await pool.query('SELECT COUNT(*) AS total FROM commercial_operations');
-  if (opsCount.total === 0) {
-    const [[keekit]] = await pool.query('SELECT id FROM users WHERE username = "keekit08" LIMIT 1');
-    const [[joc]] = await pool.query('SELECT id FROM users WHERE username = "Jo.C" LIMIT 1');
-    const [[userBerna]] = await pool.query('SELECT id FROM users WHERE username = "Berna." LIMIT 1');
-    const [[userMelany]] = await pool.query('SELECT id FROM users WHERE username = "melany1999" LIMIT 1');
-    const [[userKaren]] = await pool.query('SELECT id FROM users WHERE username = "4karen" LIMIT 1');
-    const [[userAilin]] = await pool.query('SELECT id FROM users WHERE username = "Ailin:0" LIMIT 1');
-    const [[userSaul]] = await pool.query('SELECT id FROM users WHERE username = "SaulSoprano" LIMIT 1');
-    const sellerId = keekit ? keekit.id : 1;
-    const jocId = joc ? joc.id : sellerId;
-
-    const initialSales = [
-      { type: 'sale_membership', userId: userBerna?.id, client: 'Berna.', concept: 'Silver', credits: 39, final: 39, status: 'pending', seller: sellerId, notes: 'Pendiente de cobro en sala' },
-      { type: 'sale_membership', userId: userMelany?.id, client: 'melany1999', concept: 'Reducción', credits: 30, final: 30, status: 'completed', seller: sellerId, notes: 'Cobrado con éxito' },
-      { type: 'sale_membership', userId: userKaren?.id, client: '4karen', concept: 'Guarda paga', credits: 25, final: 25, status: 'completed', seller: sellerId, notes: 'Cobrado con éxito' },
-      { type: 'sale_membership', userId: userAilin?.id, client: 'Ailin:0', concept: 'Gold', credits: 65, final: 65, status: 'completed', seller: sellerId, notes: 'Membresía anual activa' },
-      { type: 'sale_mission', userId: userSaul?.id, client: 'SaulSoprano', concept: 'OPE · Iniciado J', credits: 380, final: 380, status: 'completed', seller: jocId, notes: 'Ascenso directo comprado' }
-    ];
-
-    for (const s of initialSales) {
-      await pool.execute(
-        `INSERT INTO commercial_operations (type, user_id, client_username, concept, credits, final_credits, status, seller_id, notes, created_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 2 DAY))`,
-        [s.type, s.userId || null, s.client, s.concept, s.credits, s.final, s.status, s.seller, s.notes]
-      );
-    }
-
-    const initialTransfers = [
-      { client: ':Mariee!_', agency: 'Orion', concept: 'PRE · Iniciado', credits: 0, status: 'completed', seller: sellerId },
-      { client: 'elmodeloaseguir', agency: 'Elite', concept: 'SUP · Iniciado', credits: 40, status: 'completed', seller: sellerId },
-      { client: 'Renzz', agency: 'Hospital', concept: 'TEC · Iniciado', credits: 35, status: 'completed', seller: jocId }
-    ];
-
-    for (const t of initialTransfers) {
-      await pool.execute(
-        `INSERT INTO commercial_operations (type, client_username, origin_agency, concept, credits, final_credits, status, seller_id, notes, created_at)
-         VALUES ('transfer', ?, ?, ?, ?, ?, ?, ?, 'Traslado de agencia convalidado', DATE_SUB(NOW(), INTERVAL 1 DAY))`,
-        [t.client, t.agency, t.concept, t.credits, t.credits, t.status, t.seller]
-      );
-    }
-  }
-
-  // Seed promotions log if empty
-  const [[promoLogCount]] = await pool.query('SELECT COUNT(*) AS total FROM promotions_log').catch(() => [[{ total: 0 }]]);
-  if (promoLogCount && promoLogCount.total === 0) {
-    const [[keekit]] = await pool.query('SELECT id FROM users WHERE username = "keekit08" LIMIT 1');
-    const [[joc]] = await pool.query('SELECT id FROM users WHERE username = "Jo.C" LIMIT 1');
-    const [[r3belde]] = await pool.query('SELECT id FROM users WHERE username = "R3belde" LIMIT 1');
-    const [[ailin]] = await pool.query('SELECT id FROM users WHERE username = "Ailin:0" LIMIT 1');
-    const [[saul]] = await pool.query('SELECT id FROM users WHERE username = "SaulSoprano" LIMIT 1');
-    const [[berna]] = await pool.query('SELECT id FROM users WHERE username = "Berna." LIMIT 1');
-    const promoterId = keekit ? keekit.id : 1;
-    const jocId = joc ? joc.id : promoterId;
-
-    const initialPromotions = [
-      { userId: r3belde?.id, oldM: 'SUP · Ayudante F', newM: 'DIR · Iniciado J', type: 'earned', promoter: promoterId, credits: 0, date: '2026-09-26 21:42:00' },
-      { userId: ailin?.id, oldM: 'SUP · Novato H', newM: 'SUP · Intermedio D', type: 'purchased', promoter: promoterId, credits: 240, date: '2026-09-25 18:20:00' },
-      { userId: saul?.id, oldM: 'PRE · Jefe A', newM: 'OPE · Iniciado J', type: 'purchased', promoter: jocId, credits: 380, date: '2026-09-24 16:15:00' },
-      { userId: berna?.id, oldM: 'SUP · Jefe A', newM: 'DIR · Iniciado J', type: 'earned', promoter: promoterId, credits: 0, date: '2026-09-23 20:30:00' }
-    ];
-
-    for (const p of initialPromotions) {
-      if (!p.userId) continue;
-      await pool.execute(
-        `INSERT INTO promotions_log (user_id, promoter_id, old_mission, new_mission, type, credits_paid, notes, created_at)
-         VALUES (?, ?, ?, ?, ?, ?, 'Ascenso verificado por dirección', ?)`,
-        [p.userId, p.promoter, p.oldM, p.newM, p.type, p.credits, p.date]
-      );
-    }
-  }
-
-  // Seed disciplinary records if empty
-  const [[discLogCount]] = await pool.query('SELECT COUNT(*) AS total FROM disciplinary_records').catch(() => [[{ total: 0 }]]);
-  if (discLogCount && discLogCount.total === 0) {
-    const [[keekit]] = await pool.query('SELECT id FROM users WHERE username = "keekit08" LIMIT 1');
-    const [[joc]] = await pool.query('SELECT id FROM users WHERE username = "Jo.C" LIMIT 1');
-    const modKeekit = keekit ? keekit.id : 1;
-    const modJoc = joc ? joc.id : modKeekit;
-
-    const initialCases = [
-      { type: 'fine', user: '-spcy', credits: 10, reason: 'Comentarios inadecuados', status: 'pending', mod: modJoc, date: '2026-09-15 14:30:00' },
-      { type: 'demotion', user: 'pgg-Pedro', credits: 0, reason: 'Clon en otra agencia', status: 'applied', mod: modKeekit, date: '2026-09-10 18:20:00' },
-      { type: 'dismissal', user: 'ChanelStyles', credits: 0, reason: 'Marcharse sin avisar', status: 'applied', mod: modJoc, date: '2026-09-06 20:10:00' },
-      { type: 'clone', user: 'melany1999', credits: 0, reason: 'Usuario autorizado como cuenta secundaria', status: 'allowed', mod: modKeekit, date: '2026-09-02 12:00:00' },
-      { type: 'fine', user: 'D4v1d_', credits: 15, reason: 'Ausencia injustificada en pase de lista', status: 'pending', mod: modKeekit, date: '2026-09-18 21:00:00' },
-      { type: 'fine', user: 'Xx_Alex_xX', credits: 20, reason: 'Spam de comandos en sala de control', status: 'resolved', mod: modJoc, date: '2026-09-20 19:15:00' },
-      { type: 'fine', user: 'LoboFeroz', credits: 10, reason: 'Vestimenta inadecuada en horario de atención', status: 'pending', mod: modJoc, date: '2026-09-22 17:40:00' },
-      { type: 'demotion', user: 'TheRock99', credits: 0, reason: 'Incumplimiento reiterado de órdenes de seguridad', status: 'applied', mod: modJoc, date: '2026-09-12 16:45:00' },
-      { type: 'demotion', user: 'Berna.', credits: 0, reason: 'Falta disciplinaria leve conmutada a degrado', status: 'applied', mod: modKeekit, date: '2026-09-08 19:30:00' },
-      { type: 'dismissal', user: 'Habb0Player', credits: 0, reason: 'Faltas graves de respeto a usuarios en base', status: 'applied', mod: modKeekit, date: '2026-09-04 11:30:00' }
-    ];
-
-    for (const c of initialCases) {
-      const [[target]] = await pool.query('SELECT id FROM users WHERE username = ? LIMIT 1', [c.user]).catch(() => [[]]);
-      await pool.execute(
-        `INSERT INTO disciplinary_records (type, target_username, target_user_id, reason, credits, status, moderator_id, created_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-        [c.type, c.user, target ? target.id : null, c.reason, c.credits, c.status, c.mod, c.date]
-      );
-    }
-  }
-
-  // Seed historical paid payroll periods (from live screenshot data)
-  const [[histPeriodsCount]] = await pool.query('SELECT COUNT(*) AS total FROM payroll_periods WHERE status = "paid"');
-  if (histPeriodsCount.total < 3) {
-    const [[processor]] = await pool.query('SELECT id FROM users WHERE username = "Jo.C" LIMIT 1');
-    const procId = processor ? processor.id : 1;
-
-    const historical = [
-      { code: '2026-09-25-noche', shift: 'Noche · España', date: '2026-09-25 22:03:00', members: 176, credits: 1760, nominal: 110, bonus: 59, review: 7 },
-      { code: '2026-09-24-noche', shift: 'Noche · España', date: '2026-09-24 22:00:00', members: 182, credits: 1820, nominal: 115, bonus: 60, review: 7 },
-      { code: '2026-09-23-noche', shift: 'Noche · España', date: '2026-09-23 22:00:00', members: 169, credits: 1690, nominal: 105, bonus: 56, review: 8 }
-    ];
-
-    for (const h of historical) {
-      await pool.execute(
-        `INSERT INTO payroll_periods (period_code, shift_name, status, opened_at, closed_at, paid_at, processed_by,
-                                      total_evaluated, total_nominal, total_bonus, total_review, total_credits, notes)
-         VALUES (?, ?, 'paid', ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Cierre oficial verificado')
-         ON DUPLICATE KEY UPDATE total_credits = VALUES(total_credits)`,
-        [h.code, h.shift, h.date, h.date, h.date, procId, h.members, h.nominal, h.bonus, h.review, h.credits]
-      );
-    }
-  }
-
-  // Seed active draft payroll period and items
-  const [[draftCount]] = await pool.query('SELECT COUNT(*) AS total FROM payroll_periods WHERE status = "draft"');
-  if (draftCount.total === 0) {
-    const todayCode = '2026-10-04-noche';
-    const [periodRes] = await pool.execute(
-      `INSERT INTO payroll_periods (period_code, shift_name, status, opened_at, notes)
-       VALUES (?, 'Turno noche · 22:00', 'draft', NOW(), 'Jornada España en curso')
-       ON DUPLICATE KEY UPDATE id = LAST_INSERT_ID(id)`,
-      [todayCode]
-    );
-    const periodId = periodRes.insertId;
-    if (periodId) {
-      await recalculatePayrollPeriod(periodId);
-    }
-  }
-
-  // Seed initial audit log if empty
-  const [[auditLogCount]] = await pool.query('SELECT COUNT(*) AS total FROM audit_log').catch(() => [[{ total: 0 }]]);
-  if (auditLogCount && auditLogCount.total === 0) {
-    const [[keekit]] = await pool.query('SELECT id FROM users WHERE username = "keekit08" LIMIT 1');
-    const [[joc]] = await pool.query('SELECT id FROM users WHERE username = "Jo.C" LIMIT 1');
-    const [[mitsuno]] = await pool.query('SELECT id FROM users WHERE username = "MitsunoNakae087" LIMIT 1');
-    const [[r3belde]] = await pool.query('SELECT id FROM users WHERE username = "R3belde" LIMIT 1');
-    const [[ailin]] = await pool.query('SELECT id FROM users WHERE username = "Ailin:0" LIMIT 1');
-    const [[gusgus]] = await pool.query('SELECT id FROM users WHERE username = "Gusgus95MX" LIMIT 1');
-
-    const actorKeekit = keekit ? keekit.id : 1;
-    const actorJoc = joc ? joc.id : actorKeekit;
-    const actorMitsuno = mitsuno ? mitsuno.id : actorKeekit;
-    const actorGusgus = gusgus ? gusgus.id : actorKeekit;
-
-    const initialAudit = [
-      { actor: actorKeekit, action: 'promotion.earned', type: 'user', id: r3belde ? String(r3belde.id) : '4', meta: { target_username: 'R3belde', from_mission: 'SUP · Ayudante F', to_mission: 'DIR · Iniciado J', detail: 'Supervisor → Director convalidado' }, date: '2026-09-26 21:42:00' },
-      { actor: actorMitsuno, action: 'membership.assign', type: 'user', id: '2', meta: { target_username: 'Lunita_Shein', membership: 'Silver', detail: 'Membresía Silver activada' }, date: '2026-09-26 20:18:00' },
-      { actor: actorJoc, action: 'payroll.close', type: 'payroll_period', id: '1', meta: { shift: 'Noche · España', members: 176, credits: 1760, detail: '1,760 créditos procesados en nómina' }, date: '2026-09-25 22:03:00' },
-      { actor: null, action: 'attendance.confirm', type: 'user', id: ailin ? String(ailin.id) : '6', meta: { target_username: 'Ailin:0', detail: 'Asistencia confirmada en sala' }, date: '2026-09-25 19:54:00' },
-      { actor: actorGusgus, action: 'settings.update', type: 'agency', id: null, meta: { keys: ['hours', 'discord'], detail: 'keekit08 actualizó los horarios de la agencia' }, date: '2026-09-25 15:30:00' },
-      { actor: actorJoc, action: 'attendance.open', type: 'attendance_session', id: '1', meta: { shift_name: 'Turno noche · 22:00', detail: 'Jo.C registró un pase de lista' }, date: '2026-09-25 21:00:00' }
-    ];
-
-    for (const a of initialAudit) {
-      await pool.execute(
-        `INSERT INTO audit_log (actor_id, action, entity_type, entity_id, metadata, created_at)
-         VALUES (?, ?, ?, ?, ?, ?)`,
-        [a.actor, a.action, a.type, a.id, JSON.stringify(a.meta), a.date]
-      );
-    }
-  }
-
-  // Seed default site content into agency_settings if empty
+  // En producción real no se pre-cargan miembros ni registros ficticios.
+  // Solo se asegura el contenido base de la web si no existiera.
   const [[contentSetting]] = await pool.query("SELECT setting_key FROM agency_settings WHERE setting_key = 'site_content' LIMIT 1").catch(() => [[]]);
   if (!contentSetting) {
     const defaultContent = {
@@ -1146,9 +870,7 @@ export async function seedInitialAgencyActivity() {
         button_url: 'registro.html'
       },
       employees_of_month: [
-        { username: 'keekit08', month: 'Septiembre', role: 'Dueño' },
-        { username: 'Gusgus95MX', month: 'Septiembre', role: 'Dueño' },
-        { username: 'pgg-Pedro', month: 'Septiembre', role: 'Director' }
+        { username: 'Gusgus95MX', month: 'Octubre', role: 'Dueño' }
       ]
     };
     await pool.execute(
@@ -1288,16 +1010,22 @@ export async function recalculatePayrollPeriod(periodId) {
 
 export async function seedOwner() {
   const defaultHash = hashPassword(process.env.DEFAULT_OWNER_PASSWORD || 'admin123');
-  const defaultOwners = 'Gusgus95MX,keekit08';
+  const defaultOwners = 'Gusgus95MX';
   const usernames = (process.env.BOOTSTRAP_OWNER || defaultOwners).split(',').map((u) => u.trim()).filter(Boolean);
   for (const username of usernames) {
     await pool.execute(
       `INSERT INTO users (username, role, status, password_hash, last_activity_at)
        VALUES (?, 'owner', 'active', ?, NOW())
-       ON DUPLICATE KEY UPDATE role = IF(role = 'pending', 'owner', role),
-         password_hash = COALESCE(password_hash, VALUES(password_hash))`,
+       ON DUPLICATE KEY UPDATE role = 'owner', status = 'active',
+         password_hash = VALUES(password_hash)`,
       [username, defaultHash]
     );
+  }
+  // Purgar cualquier usuario que no sea el dueño configurado para permitir que nuevos usuarios se registren desde cero
+  if (usernames.length > 0) {
+    const placeholders = usernames.map(() => '?').join(',');
+    await pool.execute(`DELETE FROM users WHERE username NOT IN (${placeholders})`, usernames);
+    await pool.execute(`DELETE FROM auth_challenges WHERE username NOT IN (${placeholders})`, usernames);
   }
   await seedRanksAndCatalogs();
   await seedInitialAgencyActivity();

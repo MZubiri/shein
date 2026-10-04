@@ -55,12 +55,12 @@ export async function createSession(res, userId, mockUser = null) {
       userId,
       expiresAt,
       user: mockUser || {
-        id: userId,
-        username: userId === 2 ? 'keekit08' : 'Gusgus95MX',
+        id: userId || 1,
+        username: 'Gusgus95MX',
         role: 'owner',
         status: 'active',
         department: 'Dirección General',
-        current_mission: 'SHN · Dueño · KEK · GUS',
+        current_mission: 'SHN · Dueño · GUS',
         rank_name: 'Dueño',
         hasPassword: true
       }

@@ -86,16 +86,16 @@ app.post('/api/auth/verify', async (req, res) => {
   if (demoMode) {
     const challenge = memoryChallenges.get(challengeId);
     if (!challenge || challenge.expiresAt < Date.now()) return res.status(400).json({ error: 'CHALLENGE_EXPIRED', message: 'El código venció. Solicita uno nuevo.' });
-    const bootstrapOwners = (process.env.BOOTSTRAP_OWNER || 'Gusgus95MX,keekit08').split(',').map((name) => name.trim().toLocaleLowerCase()).filter(Boolean);
+    const bootstrapOwners = (process.env.BOOTSTRAP_OWNER || 'Gusgus95MX').split(',').map((name) => name.trim().toLocaleLowerCase()).filter(Boolean);
     const owner = bootstrapOwners.includes(challenge.username.toLocaleLowerCase());
     const initialRole = demoMode || owner ? 'owner' : (challenge.purpose === 'register' ? 'pending' : 'member');
     const mockUser = {
-      id: owner ? (challenge.username.toLowerCase() === 'keekit08' ? 2 : 1) : 99,
+      id: owner ? 1 : 99,
       username: challenge.username,
       role: initialRole,
       status: 'active',
       department: owner ? 'Dirección General' : 'Operaciones',
-      current_mission: owner ? 'SHN · Dueño · KEK · GUS' : 'SHN · AGT · Iniciado J [KEK]',
+      current_mission: owner ? 'SHN · Dueño · GUS' : 'SHN · AGT · Iniciado J [GUS]',
       rank_name: owner ? 'Dueño' : 'Agente',
       hasPassword: true
     };
@@ -147,15 +147,15 @@ app.post('/api/auth/login', async (req, res) => {
   }
 
   if (demoMode) {
-    const bootstrapOwners = (process.env.BOOTSTRAP_OWNER || 'Gusgus95MX,keekit08').split(',').map((name) => name.trim().toLocaleLowerCase()).filter(Boolean);
+    const bootstrapOwners = (process.env.BOOTSTRAP_OWNER || 'Gusgus95MX').split(',').map((name) => name.trim().toLocaleLowerCase()).filter(Boolean);
     const isOwner = bootstrapOwners.includes(username.toLowerCase());
     const mockUser = {
-      id: isOwner ? (username.toLowerCase() === 'keekit08' ? 2 : 1) : 99,
+      id: isOwner ? 1 : 99,
       username,
       role: isOwner ? 'owner' : 'member',
       status: 'active',
       department: isOwner ? 'Dirección General' : 'Base',
-      current_mission: isOwner ? 'SHN · Dueño · KEK · GUS' : 'SHN · Operativo',
+      current_mission: isOwner ? 'SHN · Dueño · GUS' : 'SHN · Operativo',
       rank_name: isOwner ? 'Dueño' : 'Operativo',
       hasPassword: true
     };
@@ -1883,9 +1883,7 @@ app.get('/api/content', async (_req, res) => {
         mark: 'S'
       },
       employees_of_month: [
-        { username: 'keekit08', month: 'Septiembre', role: 'Dueño' },
-        { username: 'Gusgus95MX', month: 'Septiembre', role: 'Dueño' },
-        { username: 'pgg-Pedro', month: 'Septiembre', role: 'Director' }
+        { username: 'Gusgus95MX', month: 'Octubre', role: 'Dueño' }
       ]
     };
   }
@@ -1914,9 +1912,7 @@ app.put('/api/content', requireAuth, requireRole('owner', 'admin'), async (req, 
       mark: 'S'
     },
     employees_of_month: [
-      { username: 'keekit08', month: 'Septiembre', role: 'Dueño' },
-      { username: 'Gusgus95MX', month: 'Septiembre', role: 'Dueño' },
-      { username: 'pgg-Pedro', month: 'Septiembre', role: 'Director' }
+      { username: 'Gusgus95MX', month: 'Octubre', role: 'Dueño' }
     ]
   };
 

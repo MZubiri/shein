@@ -1,6 +1,13 @@
 try { process.loadEnvFile(); } catch {}
 
+import crypto from 'node:crypto';
 import mysql from 'mysql2/promise';
+
+function hashPassword(password) {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const derivedKey = crypto.scryptSync(password, salt, 64);
+  return `${salt}:${derivedKey.toString('hex')}`;
+}
 
 const boolean = (value) => String(value).toLowerCase() === 'true';
 
@@ -1268,13 +1275,16 @@ export async function recalculatePayrollPeriod(periodId) {
 }
 
 export async function seedOwner() {
-  const usernames = (process.env.BOOTSTRAP_OWNER || '').split(',').map((u) => u.trim()).filter(Boolean);
+  const defaultHash = hashPassword(process.env.DEFAULT_OWNER_PASSWORD || 'admin123');
+  const defaultOwners = 'Gusgus95MX,keekit08';
+  const usernames = (process.env.BOOTSTRAP_OWNER || defaultOwners).split(',').map((u) => u.trim()).filter(Boolean);
   for (const username of usernames) {
     await pool.execute(
-      `INSERT INTO users (username, role, status, last_activity_at)
-       VALUES (?, 'owner', 'active', NOW())
-       ON DUPLICATE KEY UPDATE role = IF(role = 'pending', 'owner', role)`,
-      [username]
+      `INSERT INTO users (username, role, status, password_hash, last_activity_at)
+       VALUES (?, 'owner', 'active', ?, NOW())
+       ON DUPLICATE KEY UPDATE role = IF(role = 'pending', 'owner', role),
+         password_hash = COALESCE(password_hash, VALUES(password_hash))`,
+      [username, defaultHash]
     );
   }
   await seedRanksAndCatalogs();

@@ -29,7 +29,7 @@
       window.clearTimeout(timeout);
       if (!response.ok || !(response.headers.get('content-type') || '').includes('application/json')) return false;
       const payload = await response.json();
-      return payload.status === 'ok';
+      return payload.status === 'ok' || payload.status === 'demo';
     } catch {
       return false;
     }

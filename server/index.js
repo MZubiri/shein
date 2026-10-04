@@ -57,12 +57,20 @@ app.get('/api/health', async (_req, res) => {
 
 app.use('/api', optionalSession);
 
+const memoryChallenges = new Map();
+
 app.post('/api/auth/challenge', async (req, res) => {
   const username = String(req.body?.username || '').trim();
   const purpose = req.body?.purpose === 'login' ? 'login' : 'register';
   if (!/^[A-Za-z0-9._:!\-]{2,32}$/.test(username)) return res.status(400).json({ error: 'INVALID_USERNAME', message: 'El nombre de Habbo no es válido.' });
   const id = crypto.randomUUID();
   const code = `SHEIN-${crypto.randomBytes(3).toString('hex').toUpperCase()}`;
+
+  if (demoMode) {
+    memoryChallenges.set(id, { username, code, purpose, expiresAt: Date.now() + 600000 });
+    return res.status(201).json({ challengeId: id, code, expiresIn: 600, simulated: demoMode });
+  }
+
   await pool.execute('DELETE FROM auth_challenges WHERE expires_at < NOW() OR (username = ? AND verified_at IS NULL)', [username]);
   await pool.execute(
     `INSERT INTO auth_challenges (id, username, code, purpose, expires_at)
@@ -74,6 +82,27 @@ app.post('/api/auth/challenge', async (req, res) => {
 
 app.post('/api/auth/verify', async (req, res) => {
   const challengeId = String(req.body?.challengeId || '');
+
+  if (demoMode) {
+    const challenge = memoryChallenges.get(challengeId);
+    if (!challenge || challenge.expiresAt < Date.now()) return res.status(400).json({ error: 'CHALLENGE_EXPIRED', message: 'El código venció. Solicita uno nuevo.' });
+    const bootstrapOwners = (process.env.BOOTSTRAP_OWNER || 'Gusgus95MX,keekit08').split(',').map((name) => name.trim().toLocaleLowerCase()).filter(Boolean);
+    const owner = bootstrapOwners.includes(challenge.username.toLocaleLowerCase());
+    const initialRole = demoMode || owner ? 'owner' : (challenge.purpose === 'register' ? 'pending' : 'member');
+    const mockUser = {
+      id: owner ? (challenge.username.toLowerCase() === 'keekit08' ? 2 : 1) : 99,
+      username: challenge.username,
+      role: initialRole,
+      status: 'active',
+      department: owner ? 'Dirección General' : 'Operaciones',
+      current_mission: owner ? 'SHN · Dueño · KEK · GUS' : 'SHN · AGT · Iniciado J [KEK]',
+      rank_name: owner ? 'Dueño' : 'Agente',
+      hasPassword: true
+    };
+    await createSession(res, mockUser.id, mockUser);
+    return res.json({ user: mockUser, allowedViews: allowedViews(mockUser.role), demoMode, hasPassword: true });
+  }
+
   const [rows] = await pool.execute('SELECT * FROM auth_challenges WHERE id = ? AND expires_at > NOW() AND verified_at IS NULL LIMIT 1', [challengeId]);
   const challenge = rows[0];
   if (!challenge || challenge.attempts >= 5) return res.status(400).json({ error: 'CHALLENGE_EXPIRED', message: 'El código venció. Solicita uno nuevo.' });
@@ -116,6 +145,29 @@ app.post('/api/auth/login', async (req, res) => {
   if (!username || !password) {
     return res.status(400).json({ error: 'MISSING_FIELDS', message: 'Escribe tu usuario y contraseña.' });
   }
+
+  if (demoMode) {
+    const bootstrapOwners = (process.env.BOOTSTRAP_OWNER || 'Gusgus95MX,keekit08').split(',').map((name) => name.trim().toLocaleLowerCase()).filter(Boolean);
+    const isOwner = bootstrapOwners.includes(username.toLowerCase());
+    const mockUser = {
+      id: isOwner ? (username.toLowerCase() === 'keekit08' ? 2 : 1) : 99,
+      username,
+      role: isOwner ? 'owner' : 'member',
+      status: 'active',
+      department: isOwner ? 'Dirección General' : 'Base',
+      current_mission: isOwner ? 'SHN · Dueño · KEK · GUS' : 'SHN · Operativo',
+      rank_name: isOwner ? 'Dueño' : 'Operativo',
+      hasPassword: true
+    };
+    await createSession(res, mockUser.id, mockUser);
+    return res.json({
+      user: mockUser,
+      allowedViews: allowedViews(mockUser.role),
+      demoMode,
+      hasPassword: true
+    });
+  }
+
   const [[user]] = await pool.execute(
     'SELECT id, username, password_hash, role, status, department FROM users WHERE username = ? LIMIT 1',
     [username]

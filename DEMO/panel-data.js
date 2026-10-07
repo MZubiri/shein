@@ -9,6 +9,7 @@
   let cachedRanks = [];
   let cachedMembers = [];
   let currentEditMember = null;
+  let currentUser = null;
 
   let activeTimerObj = null;
   let timerInterval = null;
@@ -1778,7 +1779,8 @@
   // --- PROMOTIONS & DIRECT ADVANCEMENT ---
   async function loadPromotionProfile(targetUsername = '') {
     const inputVal = document.querySelector('#promoSearchInput')?.value.trim();
-    const username = targetUsername || inputVal || cachedMembers[0]?.username || 'R3belde';
+    const username = targetUsername || inputVal || cachedMembers[0]?.username || currentUser?.username || '';
+    if (!username) return;
     try {
       const data = await api.request(`/promotions/profile?username=${encodeURIComponent(username)}`);
       currentPromotionProfile = data;
@@ -1885,6 +1887,23 @@
         }
       }
     } catch (error) {
+      if (error.status === 404) {
+        currentPromotionProfile = null;
+        const nameEl = document.querySelector('#promoUsername');
+        if (nameEl) nameEl.textContent = username ? `${username} (No registrado)` : 'Sin usuario seleccionado';
+        const meta = document.querySelector('#promoUserMeta');
+        if (meta) meta.textContent = 'USUARIO NO REGISTRADO';
+        const currentM = document.querySelector('#promoCurrentMission');
+        if (currentM) currentM.textContent = 'Sin registro';
+        const nextM = document.querySelector('#promoNextMission');
+        if (nextM) nextM.textContent = 'Sin sugerencia';
+        const applyBtn = document.querySelector('#btnApplyPromotion');
+        if (applyBtn) {
+          applyBtn.disabled = true;
+          applyBtn.textContent = 'Usuario no encontrado en base de datos';
+        }
+        return;
+      }
       if (error.status !== 403) notify('Error al consultar requisitos: ' + error.message);
     }
   }
@@ -3009,6 +3028,7 @@
       session.user.current_mission = 'SHN · Dueño · GUS';
       session.allowedViews = ['*'];
     }
+    currentUser = session.user;
     applyIdentity(session.user);
     applyPermissions(session.allowedViews);
     setupSoundToggle();
@@ -3028,7 +3048,7 @@
       loadPaymentsHistory(),
       loadMemberships(),
       loadOperations(),
-      loadPromotionProfile('R3belde'),
+      loadPromotionProfile(session.user?.username || ''),
       loadPromotionsHistory(),
       loadMissionsView(),
       loadDiscipline(),
